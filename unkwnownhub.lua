@@ -21,27 +21,11 @@ tab:Slider("Slider", 0, 100, 30, function(t)
     print(t)
 end)
 
-tab:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
-    print(t)
-end)
-
 tab:Textbox("Textbox", true, function(t)
     print(t)
 end)
 
 local spins = win:Tab("Spins")
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily | Auto-Spin", function()
-    while true do
-        wait()
-        if game.PlaceId ~= 5956785391 then
-            lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
-            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
-        end
-    end    
-end)
-
 
 spins:Dropdown("Select Clans", clans, function(selectedClan)
     print("Selected Clan:", selectedClan)
@@ -65,8 +49,25 @@ spins:Button("Clans | Auto-Spins", function()
     end    
 end)
 
+
+-- Обработчик события для выполнения Lua-скрипта
+spins:Button("Daily | Auto-Spin", function()
+    while true do
+        wait()
+        if game.PlaceId ~= 5956785391 then
+            lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
+            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
+        end
+    end    
+end)
+
 local changeclr = win:Tab("Change UI Color")
 
 changeclr:Colorpicker("Change UI Color", Color3.fromRGB(140, 44, 224), function(t)
     lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
+end)
+
+
+tab:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
+    print(t)
 end)

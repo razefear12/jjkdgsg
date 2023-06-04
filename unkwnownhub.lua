@@ -9,7 +9,7 @@ tab:Button("Button", function()
     lib:Notification("Notification", "Hello!", "Hi!")
 end)
 
-tab:Toggle("Toggle", false, function(t)
+/*tab:Toggle("Toggle", false, function(t)
     print(t)
 end)
 
@@ -32,8 +32,11 @@ end)
 tab:Bind("Bind", Enum.KeyCode.RightShift, function()
     print("Pressed!")
 end)
+*/
 
-tab:Label("Label")
+
+
+local tab = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
 tab:Button("Daily auto-spin", function(t)
@@ -45,6 +48,7 @@ tab:Button("Daily auto-spin", function(t)
         end
     end    
 end)
+
 
 local changeclr = win:Tab("Change UI Color")
 

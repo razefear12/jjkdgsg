@@ -11,6 +11,7 @@ local tab = win:Tab("Main")
 
 tab:Button("Button", function()
     lib:Notification("Notification", "Hello!", "Hi!")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
 end)
 
 tab:Toggle("Toggle", false, function(t)

@@ -3,7 +3,7 @@ local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12
 
 local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
-local tab = win:Tab("Tab 1")
+local tab = win:Tab("Main")
 
 tab:Button("Button", function()
     lib:Notification("Notification", "Hello!", "Hi!")

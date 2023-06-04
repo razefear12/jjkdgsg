@@ -1,5 +1,7 @@
 local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12/jjkdgsg/main/ui.lua")()
 
+local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
+
 
 local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
@@ -14,10 +16,6 @@ tab:Toggle("Toggle", false, function(t)
 end)
 
 tab:Slider("Slider", 0, 100, 30, function(t)
-    print(t)
-end)
-
-tab:Dropdown("Dropdown", {"Option 1", "Option 2", "Option 3", "Option 4", "Option 5"}, function(t)
     print(t)
 end)
 
@@ -36,8 +34,30 @@ spins:Button("Daily auto-spin", function()
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then
-            lib:Notification("Daily auto-spin", "Activeted", "OK")
+            lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
             game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
+        end
+    end    
+end)
+
+
+tab:Dropdown("Select Clans", clans, function(selectedClan)
+    print("Selected Clan:", selectedClan)
+    lib:Notification("Clan Selected", "You selected the clan: "..selectedClan, "OK")
+end)
+
+
+spinsclan:Button("Daily auto-spin", function()
+    while true do
+        wait()
+        if game.PlaceId ~= 5956785391 then
+            lib:Notification("Clans | Auto-Spins", "Activeted", "OK")
+            for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_InitiateS:InvokeServer("check_can_spin")
+                task.wait(.13)
+                if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
+                    return end
+            end
         end
     end    
 end)

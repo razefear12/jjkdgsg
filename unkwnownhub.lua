@@ -1,90 +1,71 @@
-local SolarisLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/sol"))()
+local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12/jjkdgsg/main/ui.lua")()
 
---[[SolarisLib:New({
-  Name - Title of the UI <string>
-  FolderToSave - Name of the folder where the UI files will be stored <string>
-})]]
-local win = SolarisLib:New({
-  Name = "SolarisLib",
-  FolderToSave = "SolarisLibStuff"
-})
+local clans = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
 
---win:Tab(title <string>)
-local tab = win:Tab("Tab 1")
+local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
 
---tab:Section(title <string>)
-local sec = tab:Section("Elements")
 
---sec:Button(title <string>, callback <function>)
-sec:Button("Button", function()
-  SolarisLib:Notification("Test", "This is a notification test.")
+local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
+
+local tab = win:Tab("Main")
+
+tab:Button("Button", function()
+    lib:Notification("Notification", "Hello!", "Hi!")
 end)
 
---sec:Toggle(title <string>,default <boolean>, flag <string>, callback <function>)
-local toggle = sec:Toggle("Toggle", false,"Toggle", function(t)
-  print(t)
+tab:Toggle("Toggle", false, function(t)
+    print(t)
 end)
 
---[[
-toggle:Set(state <boolean>)
-]]
-
---sec:Slider(title <string>,default <number>,max <number>,minimum <number>,increment <number>, flag <string>, callback <function>)
-local slider = sec:Slider("Slider", 0,25,0,2.5,"Slider", function(t)
-  print(t)
+tab:Slider("Slider", 0, 100, 30, function(t)
+    print(t)
 end)
 
---[[
-slider:Set(state <number>)
-]]
-
---sec:Dropdown(title <string>,options <table>,default <string>, flag <string>, callback <function>)
-local dropdown = sec:Dropdown("Dropdown", {"a","b","c","d","e"},"","Dropdown", function(t)
-  print(t)
+tab:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
+    print(t)
 end)
 
---[[
-Dropdown:Refresh(options <table>, deletecurrent <boolean>)
-Dropdown:Set(option <string>)
-]]
-
---sec:MultiDropdown(title <string>,options <table>,default <table>, flag <string>, callback <function>)
-local multidropdown =sec:MultiDropdown("Multi Dropdown", {"a","b","c","d","e"},{"b", "c"},"Dropdown", function(t)
-  print(table.concat(t, ", "))
+tab:Textbox("Textbox", true, function(t)
+    print(t)
 end)
 
---[[
-Dropdown:Refresh(options <table>, deletecurrent <boolean>)
-Dropdown:Set(option <table>)
-]]
+local spins = win:Tab("Spins")
 
---sec:Colorpicker(title <string>, default <color3>, flag <string>, callback <function>)
-sec:Colorpicker("Colorpicker", Color3.fromRGB(255,255,255),"Colorpicker", function(t)
-  print(t)
+-- Обработчик события для выполнения Lua-скрипта
+spins:Button("Daily auto-spin", function()
+    while true do
+        wait()
+        if game.PlaceId ~= 5956785391 then
+            lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
+            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
+        end
+    end    
 end)
 
---sec:Textbox(title <string> ,disappear <boolean>, callback <function>)
-sec:Textbox("Textbox", true, function(t)
-  print(t)
+
+tab:Dropdown("Select Clans", clans, function(selectedClan)
+    print("Selected Clan:", selectedClan)
+    lib:Notification("Clan Selected", "You selected the clan: "..selectedClan, "OK")
 end)
 
---sec:Bind(title <string>, default <keycode>, hold <boolean>, flag <string>, callback <function>)
-sec:Bind("Hold Bind", Enum.KeyCode.E, true, "BindHold", function(t)
-  print(t)
+
+spinsclan:Button("Daily auto-spin", function()
+    while true do
+        wait()
+        if game.PlaceId ~= 5956785391 then
+            lib:Notification("Clans | Auto-Spins", "Activeted", "OK")
+            for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_InitiateS:InvokeServer("check_can_spin")
+                task.wait(.13)
+                if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
+                    return end
+            end
+        end
+    end    
 end)
 
-sec:Bind("Normal Bind", Enum.KeyCode.F, false, "BindNormal", function()
-  print("Bind pressed")
+local changeclr = win:Tab("Change UI Color")
+
+changeclr:Colorpicker("Change UI Color", Color3.fromRGB(140, 44, 224), function(t)
+    lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
 end)
-
---[[
-bind:Set(state <keycode>)
-]]
-
---sec:Label(text <string>)
-local label = sec:Label("Label")
-
---[[
-label:Set(text <string>)
-]]
-local tab2 = win:Tab("Tab 2")

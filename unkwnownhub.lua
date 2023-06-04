@@ -9,7 +9,8 @@ tab:Button("Button", function()
     lib:Notification("Notification", "Hello!", "Hi!")
 end)
 
-/*tab:Toggle("Toggle", false, function(t)
+/*
+tab:Toggle("Toggle", false, function(t)
     print(t)
 end)
 
@@ -36,7 +37,7 @@ end)
 
 
 
-local tab = win:Tab("Spins")
+local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
 tab:Button("Daily auto-spin", function(t)

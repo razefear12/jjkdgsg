@@ -27,11 +27,6 @@ end)
 
 local spins = win:Tab("Spins")
 
-spins:Dropdown("Select Clans", clans, function(selectedClan)
-    print("Selected Clan:", selectedClan)
-    lib:Notification("Clan Selected", "You selected the clan: "..selectedClan, "OK")
-end)
-
 
 spins:Button("Clans | Auto-Spins", function()
     while true do
@@ -51,12 +46,12 @@ end)
 
 
 -- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily | Auto-Spin", function()
+spins:Button("Daily | Auto-Spin", function(t)
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then
             lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
-            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
+            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer(t)
         end
     end    
 end)

@@ -49,7 +49,7 @@ spins:Dropdown("Select Clans", clans, function(selectedClan)
 end)
 
 
-spins:Button("Clans | Auto-Spins"):Bind(function()
+spins:Button("Clans | Auto-Spins", function()
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then

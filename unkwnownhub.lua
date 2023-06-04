@@ -1,71 +1,47 @@
-local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12/jjkdgsg/main/ui.lua")()
+--Made by : https://v3rmillion.net/member.php?action=profile&uid=1265584
 
-local clans = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
-
-local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
-
-
-local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
-
-local tab = win:Tab("Main")
-
-tab:Button("Button", function()
-    lib:Notification("Notification", "Hello!", "Hi!")
-end)
-
-tab:Toggle("Toggle", false, function(t)
-    print(t)
-end)
-
-tab:Slider("Slider", 0, 100, 30, function(t)
-    print(t)
-end)
-
-tab:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
-    print(t)
-end)
-
-tab:Textbox("Textbox", true, function(t)
-    print(t)
-end)
-
-local spins = win:Tab("Spins")
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily auto-spin", function()
-    while true do
-        wait()
-        if game.PlaceId ~= 5956785391 then
-            lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
-            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
-        end
-    end    
-end)
-
-
-tab:Dropdown("Select Clans", clans, function(selectedClan)
-    print("Selected Clan:", selectedClan)
-    lib:Notification("Clan Selected", "You selected the clan: "..selectedClan, "OK")
-end)
-
-
-spinsclan:Button("Daily auto-spin", function()
-    while true do
-        wait()
-        if game.PlaceId ~= 5956785391 then
-            lib:Notification("Clans | Auto-Spins", "Activeted", "OK")
-            for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_InitiateS:InvokeServer("check_can_spin")
-                task.wait(.13)
-                if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
-                    return end
-            end
-        end
-    end    
-end)
-
-local changeclr = win:Tab("Change UI Color")
-
-changeclr:Colorpicker("Change UI Color", Color3.fromRGB(140, 44, 224), function(t)
-    lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
-end)
+_G.Settings = {
+    ['Name'] = 'Some random template',
+    ['Intro'] = true,
+    ['Keybind'] = 'G'
+    }
+    
+    local Library = loadstring(game:HttpGet("https://pastebin.com/raw/QPehPJ6m", true))()
+    
+    
+    local Tab1 = Library:CreateTab('Tab1')
+    
+    Tab1:Label('Epik Label')
+    Tab1:Button('Epik Button', function()
+    print("OMG, YOU PRESSED THE BUTTON! YOU'RE SO SMART!")
+    end)
+    Tab1:Toggle('Epik Toggle', false, function(bool)
+    print(bool)
+    end)
+    Tab1:TextBox('Epik Textbox', 'Placeholder idk', function(output)
+    print(output)
+    end)
+    Tab1:Dropdown('Epik Dropdown', {'Epic', 'Right?', 'Skillz'}, function(output)
+    print(output)
+    end)
+    Tab1:Label('Everything is epik, totes.')
+    
+    local Tab2 = Library:CreateTab('Tab2')
+    Tab2:Label('OMG ANOTHER TAB!')
+    
+    
+    --[[
+    Refresh example:
+    ]]
+    local TabwithRefresh = Library:CreateTab('TabwithRefresh')
+    
+    local Dropdown = TabwithRefresh:Dropdown('Epik Dropdown', {'Epic', 'Right?', 'Skillz'}, function(output)
+    print(output)
+    end)
+    
+    wait(10)
+    
+    Dropdown:Refresh('OMG REFRESH', {'NANI', 'WHAT IS', 'THIS MAGIC?'}, function(output)
+    print(output)
+    print('lol')
+    end)

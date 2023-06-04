@@ -51,7 +51,7 @@ spins:Button("Daily | Auto-Spin", function(t)
         wait()
         if game.PlaceId ~= 5956785391 then
             lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
-            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer(t)
+            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
         end
     end    
 end)

@@ -29,25 +29,6 @@ coroutine.wrap(
     end
 )()
 
-local function GetRainbowColor()
-    return Color3.fromHSV(lib.HueSelectionPosition / 255, 1, 1)
-end
-
-RunService.RenderStepped:Connect(function()
-    if UserInputService:IsKeyDown(CloseBind) then
-        ui:Destroy()
-    end
-
-    local RainbowColor = GetRainbowColor()
-    ui.BackgroundColor3 = PresetColor
-
-    for _, object in pairs(ui:GetDescendants()) do
-        if object:IsA("ImageLabel") or object:IsA("ImageButton") or object:IsA("TextLabel") then
-            object.BackgroundColor3 = RainbowColor
-        end
-    end
-end)
-
 local function MakeDraggable(topbarobject, object)
     local Dragging = nil
     local DragInput = nil

@@ -29,7 +29,6 @@ local spins = win:Tab("Spins")
 
 
 spins:Button("Button", function(t)
-    print(t)
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then

@@ -49,16 +49,17 @@ spins:Dropdown("Select Clans", clans, function(selectedClan)
 end)
 
 
-spins:Button("Clans | Auto-Spins", function()
+spins:Button("Clans | Auto-Spins"):Bind(function()
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then
-            lib:Notification("Clans | Auto-Spins", "Activeted", "OK")
-            for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
+            lib:Notification("Clans | Auto-Spins", "Activated", "OK")
+            for i = 1, game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_InitiateS:InvokeServer("check_can_spin")
                 task.wait(.13)
-                if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
-                    return end
+                if table.find(wanted, game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
+                    return
+                end
             end
         end
     end    

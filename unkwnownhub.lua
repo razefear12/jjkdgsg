@@ -40,7 +40,7 @@ end)
 local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
-tab:Button("Daily auto-spin", function(t)
+spins:Button("Daily auto-spin", function(t)
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then

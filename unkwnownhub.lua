@@ -32,7 +32,7 @@ end)
 local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily auto-spin", function()
+spins:Button("Daily | Auto-Spin", function()
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then
@@ -43,13 +43,13 @@ spins:Button("Daily auto-spin", function()
 end)
 
 
-tab:Dropdown("Select Clans", clans, function(selectedClan)
+spins:Dropdown("Select Clans", clans, function(selectedClan)
     print("Selected Clan:", selectedClan)
     lib:Notification("Clan Selected", "You selected the clan: "..selectedClan, "OK")
 end)
 
 
-spinsclan:Button("Daily auto-spin", function()
+spinsclan:Button("Clans | Auto-Spins", function()
     while true do
         wait()
         if game.PlaceId ~= 5956785391 then

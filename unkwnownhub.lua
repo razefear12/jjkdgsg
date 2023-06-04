@@ -9,7 +9,7 @@ local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 2
 
 local tab = win:Tab("Main")
 
-tab:Button("Button", function()
+tab:Button("Dungeon", function()
     lib:Notification("Notification", "Hello!", "Hi!")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
 end)

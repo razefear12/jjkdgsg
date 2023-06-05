@@ -1666,7 +1666,7 @@ function lib:Window(text, preset, closebind)
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
             function lib:SetWatermarkVisibility(Bool)
-                lib.Watermark.Visible = Bool;
+                self.Watermark.Visible = Bool;
             end;
             
             function lib:SetWatermark(Text)

@@ -10,22 +10,22 @@ local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 2
 local DungeonFarm = win:Tab("Main")
 
 DungeonFarm:Button("Dungeon", function()
-    lib:Notification("Dungeon | Versaware", "Hello!", "OK")
+    lib:Notification("Dungeon | Versaware", "Executed", "OK")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
 end)
 
 DungeonFarm:Button("Dungeon 2", function()
-    lib:Notification("Dungeon | Hubris", "Hello!", "OK")
+    lib:Notification("Dungeon | Hubris", "Executed", "OK")
     loadstring(game:HttpGet("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw", true))()
 end)
 
-DungeonFarm:Button("Dungeon Anti-Afk", function()
-    lib:Notification("Dungeon | Anti-Afk", "Hello!", "OK")
+DungeonFarm:Button("Dungeon | Anti-Afk", function()
+    lib:Notification("Dungeon | Anti-Afk", "Executed", "OK")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()
 end)
 
 DungeonFarm:Button("Dungeon | FPS-BOOST", function()
-    lib:Notification("Dungeon | FPS-BOOST", "Hello!", "OK")
+    lib:Notification("Dungeon | FPS-BOOST", "Executed", "OK")
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
@@ -53,7 +53,6 @@ local spins = win:Tab("Spins")
 spins:Button("Button", function(t)
     while true do
         wait()
-        if game.PlaceId ~= 5956785391 then
             lib:Notification("Clans | Auto-Spins", "Activated", "OK")
             for i = 1, game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_InitiateS:InvokeServer("check_can_spin")
@@ -68,14 +67,11 @@ end)
 
 
 -- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily | Auto-Spin", function(t)
+spins:Button("Daily | Auto-Spin", function()
     while true do
         wait()
-        if game.PlaceId ~= 5956785391 then
-            lib:Notification("Daily | Auto-Spin", "Activeted", "OK")
-            game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
-        end
-    end    
+        game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
+    end 
 end)
 
 local changeclr = win:Tab("Change UI Color")

@@ -33,11 +33,6 @@ end)
 
 local mugen = win:Tab("Mugen")
 
-mugen:Button("Mugen Farm", function()
-    lib:Notification("Zyrc | Hack", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/razefear12/jjkdgsg/main/hhhh.lua", true))()
-end)
-
 local DungeonFarm = win:Tab("Dungeon")
 
 DungeonFarm:Button("Dungeon 1", function()

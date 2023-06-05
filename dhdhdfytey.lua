@@ -60,10 +60,7 @@ end)
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Spins Codes | Fast 75 spins", function()
-    while true do
-        wait()
-        game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
-    end 
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
 end)
 
 local changeclr = win:Tab("Change UI Color")

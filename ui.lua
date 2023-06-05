@@ -157,6 +157,7 @@ function lib:Window(text, preset, closebind)
     DragFrame.ZIndex = 1
 
 
+    local MinimizeButton = Instance.new("TextButton")
     MinimizeButton.Name = "MinimizeButton"
     MinimizeButton.Parent = DragFrame
     MinimizeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -169,9 +170,19 @@ function lib:Window(text, preset, closebind)
     MinimizeButton.TextColor3 = Color3.new(1, 1, 1)
     MinimizeButton.TextSize = 14
 
+    local isMinimized = false
+
     MinimizeButton.MouseButton1Click:Connect(function()
-        -- Shrink the window
-        Main.Size = UDim2.new(0, 0, 0, 0)
+        isMinimized = not isMinimized
+        if isMinimized then
+            Main.Size = UDim2.new(0, 150, 0, 25)
+            Title.Visible = true
+            TabHold.Visible = false
+        else
+            Main.Size = UDim2.new(0, 400, 0, 300)
+            Title.Visible = true
+            TabHold.Visible = true
+        end
     end)
 
     Title.Name = "Title"

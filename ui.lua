@@ -137,6 +137,7 @@ function lib:Window(text, preset, closebind)
     Title.Font = Enum.Font.GothamSemibold
     Title.Text = text
     Title.TextSize = 14
+    Title.TextXAlignment = Enum.TextXAlignment.Center -- Added line
     
     coroutine.wrap(function()
         while wait() do

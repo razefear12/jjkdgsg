@@ -134,10 +134,13 @@ function lib:Window(text, preset, closebind)
     Title.BackgroundTransparency = 0.5
     Title.BorderSizePixel = 0
     Title.Size = UDim2.new(1, 0, 0, 25)
+    Title.Position = UDim2.new(0, 10, 0, 0) -- Update the position to be at the left offset
+    Title.AnchorPoint = Vector2.new(0, 0) -- Set the anchor point to the top-left corner
     Title.Font = Enum.Font.GothamSemibold
     Title.Text = text
     Title.TextSize = 14
-    Title.TextXAlignment = Enum.TextXAlignment.Center -- Added line
+    Title.TextXAlignment = Enum.TextXAlignment.Left -- Set the text alignment to left
+    Title.TextYAlignment = Enum.TextYAlignment.Top -- Set the text alignment to top
     
     coroutine.wrap(function()
         while wait() do

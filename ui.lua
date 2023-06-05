@@ -1030,7 +1030,7 @@ function lib:Window(text, preset, closebind)
             local OldColorSelectionPosition = nil
             local OldHueSelectionPosition = nil
             local ColorH, ColorS, ColorV = 1, 1, 1
-            local RainbowColorPicker = false
+            local RainbowColorPicker = true
             local ColorPickerInput = nil
             local ColorInput = nil
             local HueInput = nil

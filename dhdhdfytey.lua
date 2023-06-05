@@ -51,6 +51,7 @@ end)
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Daily | Auto-Spin", function()
+    lib:Notification("Daily | Auto-Spin", "Executed", "OK")
     while true do
         wait()
         game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()

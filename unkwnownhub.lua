@@ -7,11 +7,21 @@ local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibi
 
 local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
-local tab = win:Tab("Main")
+local DungeonFarm = win:Tab("Main")
 
-tab:Button("Dungeon", function()
-    lib:Notification("Notification", "Hello!", "Hi!")
+DungeonFarm:Button("Dungeon", function()
+    lib:Notification("Dungeon | Versaware", "Hello!", "OK")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
+end)
+
+DungeonFarm:Button("Dungeon 2", function()
+    lib:Notification("Dungeon | Hubris", "Hello!", "OK")
+    local function runScript()
+        local script = game:HttpGetAsync("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw")
+        loadstring(script)()
+    end
+    
+    coroutine.wrap(runScript)()
 end)
 
 tab:Toggle("Toggle", false, function(t)

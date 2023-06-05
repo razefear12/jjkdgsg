@@ -2,6 +2,8 @@ local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12
 
 local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyama"}
 
+local localPlayer = game.Players.LocalPlayer
+
 local args = {
     [1] = "Thx4300MNOuwohanaIsBack"
 }
@@ -11,8 +13,13 @@ local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 2
 local DungeonFarm = win:Tab("Main")
 
 DungeonFarm:Button("Dungeon", function()
+
+
+localPlayer:Kick("Вы были кикнут из игры.")
     lib:Notification("Dungeon | Versaware", "Executed", "OK")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
+    wait(5)
+    localPlayer:Kick("Вы были кикнут из игры.")
 end)
 
 DungeonFarm:Button("Dungeon 2", function()

@@ -31,9 +31,9 @@ maintab:Button("Farm | FPS-BOOST", function()
 end)
 
 
-local maintab = win:Tab("Mugen")
+local mugen = win:Tab("Mugen")
 
-maintab:Button("Mugen Farm", function()
+mugen:Button("Mugen Farm", function()
     lib:Notification("Zyrc | Hack", "Executed", "OK")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/razefear12/jjkdgsg/main/hhhh.lua", true))()
 end)
@@ -97,29 +97,3 @@ end)
 changeclr:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
     print(t)
 end)
-
-
-
--- Library functions
--- Sets the watermark visibility
-lib:SetWatermarkVisibility(true)
-
--- Example of dynamically-updating watermark with common traits (fps and ping)
-local FrameTimer = tick()
-local FrameCounter = 0;
-local FPS = 60;
-
-local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(function()
-    FrameCounter += 1;
-
-    if (tick() - FrameTimer) >= 1 then
-        FPS = FrameCounter;
-        FrameTimer = tick();
-        FrameCounter = 0;
-    end;
-
-    lib:SetWatermark(('UnknownHub | %s fps | %s ms'):format(
-        math.floor(FPS),
-        math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
-    ));
-end);

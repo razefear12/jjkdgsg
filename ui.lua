@@ -153,7 +153,7 @@ function lib:Window(text, preset, closebind)
     MinimizeButton.MouseButton1Click:Connect(function()
         Main.Visible = false
     end)
-    
+
     Title.Name = "Title"
     Title.Parent = Main
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)

@@ -67,3 +67,8 @@ end)
 changeclr:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
     print(t)
 end)
+
+changeclr:Button("Minimize Window", function()
+    -- Code to minimize the window
+    win.Main.Visible = false
+end)

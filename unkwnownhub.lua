@@ -1,10 +1,5 @@
 local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12/jjkdgsg/main/ui.lua")()
 
-local clans = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
-
-local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
-
-
 local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
 local DungeonFarm = win:Tab("Main")
@@ -48,23 +43,6 @@ DungeonFarm:Textbox("Textbox", true, function(t)
 end)
 
 local spins = win:Tab("Spins")
-
-
-spins:Button("Button", function(t)
-    while true do
-        wait()
-            lib:Notification("Clans | Auto-Spins", "Activated", "OK")
-            for i = 1, game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_InitiateS:InvokeServer("check_can_spin")
-                task.wait(.13)
-                if table.find(wanted, game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
-                    return
-                end
-            end
-        end
-    end    
-end)
-
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Daily | Auto-Spin", function()

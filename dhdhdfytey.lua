@@ -30,6 +30,14 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
+
+local maintab = win:Tab("Mugen")
+
+maintab:Button("Mugen Farm", function()
+    lib:Notification("Zyrc | Hack", "Executed", "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/razefear12/jjkdgsg/main/hhhh.lua", true))()
+end)
+
 local DungeonFarm = win:Tab("Dungeon")
 
 DungeonFarm:Button("Dungeon 1", function()

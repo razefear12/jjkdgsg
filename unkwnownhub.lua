@@ -14,7 +14,7 @@ DungeonFarm:Button("Dungeon", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
 end)
 
-DungeonFarm:Button("Dungeon 2", function()
+DungeonFarm2:Button("Dungeon 2", function()
     lib:Notification("Dungeon | Hubris", "Hello!", "OK")
     local function runScript()
         local script = game:HttpGetAsync("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw")

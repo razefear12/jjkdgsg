@@ -12,6 +12,12 @@ ui.Name = "ui"
 ui.Parent = game.CoreGui
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+coroutine.wrap(function()
+    while wait() do
+        PresetColor = Color3.fromHSV(lib.RainbowColorValue, 1, 1)
+    end
+end)()
+
 coroutine.wrap(
     function()
         while wait() do

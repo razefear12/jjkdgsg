@@ -14,25 +14,36 @@ DungeonFarm:Button("Dungeon", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
 end)
 
-DungeonFarm2:Button("Dungeon 2", function()
+DungeonFarm:Button("Dungeon 2", function()
     lib:Notification("Dungeon | Hubris", "Hello!", "OK")
-    local function runScript()
-        local script = game:HttpGetAsync("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw")
-        loadstring(script)()
-    end
-    
-    coroutine.wrap(runScript)()
+    loadstring(game:HttpGet("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw", true))()
 end)
 
-tab:Toggle("Toggle", false, function(t)
+DungeonFarm:Button("Dungeon Anti-Afk", function()
+    lib:Notification("Dungeon | Anti-Afk", "Hello!", "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()
+end)
+
+DungeonFarm:Button("Dungeon | FPS-BOOST", function()
+    lib:Notification("Dungeon | FPS-BOOST", "Hello!", "OK")
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
+end)
+
+DungeonFarm:Button("Zyrc Hub | Hack", function()
+    lib:Notification("Zyrc Hub | Hack", "You looser!", "yes!")
+    _G.key = "LkbS3vAWFx3i49Ph" 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/z4kshub/Scripts/main/Protected%20(3).lua"))()
+end)
+
+DungeonFarm:Toggle("Toggle", false, function(t)
     print(t)
 end)
 
-tab:Slider("Slider", 0, 100, 30, function(t)
+DungeonFarm:Slider("Slider", 0, 100, 30, function(t)
     print(t)
 end)
 
-tab:Textbox("Textbox", true, function(t)
+DungeonFarm:Textbox("Textbox", true, function(t)
     print(t)
 end)
 

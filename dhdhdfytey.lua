@@ -10,12 +10,9 @@ local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 2
 
 local DungeonFarm = win:Tab("Main")
 
-DungeonFarm:Button("Dungeon test", function()
-    lib:Notification("Dungeon | Versaware", "Executed", "OK(2)")
+DungeonFarm:Button("Dungeon 1", function()
+    lib:Notification("Dungeon | Versaware", "Executed", "")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
-    wait(5)
-    local localPlayer = game.Players.LocalPlayer
-    localPlayer:Kick("Вы были кикнут из игры.")
 end)
 
 DungeonFarm:Button("Dungeon 2", function()
@@ -31,12 +28,6 @@ end)
 DungeonFarm:Button("Dungeon | FPS-BOOST", function()
     lib:Notification("Dungeon | FPS-BOOST", "Executed", "OK")
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
-end)
-
-DungeonFarm:Button("Zyrc Hub | Hack", function()
-    lib:Notification("Zyrc Hub | Hack", "You looser!", "yes!")
-    _G.key = "LkbS3vAWFx3i49Ph" 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/z4kshub/Scripts/main/Protected%20(3).lua"))()
 end)
 
 local spins = win:Tab("Spins")

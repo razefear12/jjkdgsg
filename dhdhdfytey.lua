@@ -40,6 +40,7 @@ local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Clans | Auto-Spin", function()
+    lib:Notification("Clans | Auto-Spin", "Executed", "OK")
     for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer("check_can_spin")
     task.wait(.13)

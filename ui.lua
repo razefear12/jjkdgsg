@@ -102,7 +102,7 @@ function lib:Window(text, preset, closebind)
     Main.Parent = ui
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
     Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Main.BackgroundTransparency = 1 -- Updated line
+    Main.BackgroundTransparency = 0 -- Updated line
     Main.BorderSizePixel = 0
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
     Main.Size = UDim2.new(0, 200, 0, 200)

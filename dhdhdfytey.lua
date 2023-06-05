@@ -13,9 +13,10 @@ local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 2
 local DungeonFarm = win:Tab("Main")
 
 DungeonFarm:Button("Dungeon", function()
-    lib:Notification("Dungeon | Versaware", "Executed", "OK()")
+    lib:Notification("Dungeon | Versaware", "Executed", "OK(2)")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
     wait(5)
+    local localPlayer = game.Players.LocalPlayer
     localPlayer:Kick("Вы были кикнут из игры.")
 end)
 

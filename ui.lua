@@ -1665,17 +1665,18 @@ function lib:Window(text, preset, closebind)
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
+            local lib = {}
+
             function lib:SetWatermarkVisibility(Bool)
-                self.Watermark.Visible = Bool;
-            end;
+                self.Watermark.Visible = Bool
+            end
             
             function lib:SetWatermark(Text)
-                local X, Y = lib:GetTextBounds(Text, lib.Font, 14);
-                lib.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3);
-                lib:SetWatermarkVisibility(true)
-            
-                lib.WatermarkText.Text = Text;
-            end;
+                local X, Y = self:GetTextBounds(Text, self.Font, 14)
+                self.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
+                self:SetWatermarkVisibility(true)
+                self.WatermarkText.Text = Text
+            end
 
             Bind.MouseButton1Click:Connect(
                 function()

@@ -102,7 +102,7 @@ function lib:Window(text, preset, closebind)
     Main.Parent = ui
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
     Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Main.BackgroundTransparency = 0.8 -- Updated line
+    Main.BackgroundTransparency = 1 -- Updated line
     Main.BorderSizePixel = 0
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
     Main.Size = UDim2.new(0, 200, 0, 200)
@@ -145,13 +145,13 @@ function lib:Window(text, preset, closebind)
 
     MinimizeButton.Name = "MinimizeButton"
     MinimizeButton.Parent = DragFrame
-    MinimizeButton.BackgroundColor3 = PresetColor
+    MinimizeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     MinimizeButton.BackgroundTransparency = 0.5
     MinimizeButton.BorderSizePixel = 0
     MinimizeButton.Position = UDim2.new(1, -35, 0, 0)
     MinimizeButton.Size = UDim2.new(0, 30, 1, 0)
     MinimizeButton.Font = Enum.Font.GothamSemibold
-    MinimizeButton.Text = "_"
+    MinimizeButton.Text = "-"
     MinimizeButton.TextColor3 = Color3.new(1, 1, 1)
     MinimizeButton.TextSize = 14
 

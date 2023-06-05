@@ -39,7 +39,7 @@ end)
 local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
-spins:Button("Clans | Auto-Spin", function()
+spins:Button("Clans | Auto-Spins", function()
     lib:Notification("Clans | Auto-Spin", "Executed", "OK")
     for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer("check_can_spin")
@@ -50,8 +50,8 @@ spins:Button("Clans | Auto-Spin", function()
 end)
 
 -- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily | Auto-Spin", function()
-    lib:Notification("Daily | Auto-Spin", "Executed", "OK")
+spins:Button("Daily | Auto-Spins", function()
+    lib:Notification("Daily | Auto-Spins", "Executed", "OK")
     while true do
         wait()
         game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
@@ -60,8 +60,10 @@ end)
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Spins Codes | Fast 75 spins", function()
-        wait(10)
+    while true do
+        wait()
         game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
+    end 
 end)
 
 local changeclr = win:Tab("Change UI Color")

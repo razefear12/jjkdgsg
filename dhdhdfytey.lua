@@ -72,7 +72,7 @@ end)
 
 -- Library functions
 -- Sets the watermark visibility
-Library:SetWatermarkVisibility(true)
+lib:SetWatermarkVisibility(true)
 
 -- Example of dynamically-updating watermark with common traits (fps and ping)
 local FrameTimer = tick()
@@ -88,7 +88,7 @@ local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(
         FrameCounter = 0;
     end;
 
-    Library:SetWatermark(('UnknownHub | %s fps | %s ms'):format(
+    lib:SetWatermark(('UnknownHub | %s fps | %s ms'):format(
         math.floor(FPS),
         math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
     ));

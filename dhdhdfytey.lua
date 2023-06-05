@@ -8,7 +8,29 @@ local args = {
 
 local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
-local DungeonFarm = win:Tab("Main")
+local maintab = win:Tab("Main")
+
+maintab:Button("Farm (Map 2)", function()
+    lib:Notification("Farm | Sylveon", "Executed", "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ogamertv12/SylveonHub/main/NewLoader.lua", true))()
+end)
+
+maintab:Button("Farm (Map 2) | Only chest", function()
+    lib:Notification("Farm | Sylveon", "Executed", "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ogamertv12/SylveonHub/main/NewLoader.lua", true))()
+end)
+
+maintab:Button("Farm | Anti-Afk", function()
+    lib:Notification("Farm | Anti-Afk", "Executed", "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()
+end)
+
+maintab:Button("Farm | FPS-BOOST", function()
+    lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
+end)
+
+local DungeonFarm = win:Tab("Dungeon")
 
 DungeonFarm:Button("Dungeon 1", function()
     lib:Notification("Dungeon | Versa", "Executed", "OK")
@@ -30,7 +52,7 @@ DungeonFarm:Button("Dungeon | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
-local spins = win:Tab("Spins")
+local spins = win:Tab("Auto-Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Clans | Auto-Spins", function()

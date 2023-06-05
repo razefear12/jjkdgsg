@@ -30,18 +30,6 @@ DungeonFarm:Button("Zyrc Hub | Hack", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/z4kshub/Scripts/main/Protected%20(3).lua"))()
 end)
 
-DungeonFarm:Toggle("Toggle", false, function(t)
-    print(t)
-end)
-
-DungeonFarm:Slider("Slider", 0, 100, 30, function(t)
-    print(t)
-end)
-
-DungeonFarm:Textbox("Textbox", true, function(t)
-    print(t)
-end)
-
 local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
@@ -59,6 +47,6 @@ changeclr:Colorpicker("Change UI Color", Color3.fromRGB(140, 44, 224), function(
 end)
 
 
-tab:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
+changeclr:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
     print(t)
 end)

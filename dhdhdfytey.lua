@@ -1,5 +1,7 @@
 local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12/jjkdgsg/main/ui.lua")()
 
+local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyam"}
+
 local args = {
     [1] = "Thx4300MNOuwohanaIsBack"
 }
@@ -38,10 +40,12 @@ local spins = win:Tab("Spins")
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Clans | Auto-Spin", function()
-    while true do
-        wait()
-        game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
-    end 
+    for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer("check_can_spin")
+    task.wait(.13)
+    if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
+        return end
+    end
 end)
 
 -- Обработчик события для выполнения Lua-скрипта

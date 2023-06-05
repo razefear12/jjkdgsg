@@ -160,18 +160,19 @@ function lib:Window(text, preset, closebind)
     local MinimizeButton = Instance.new("TextButton")
     MinimizeButton.Name = "MinimizeButton"
     MinimizeButton.Parent = DragFrame
-    MinimizeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    MinimizeButton.BackgroundColor3 = PresetColor
     MinimizeButton.BackgroundTransparency = 0.5
     MinimizeButton.BorderSizePixel = 0
     MinimizeButton.Position = UDim2.new(1, -35, 0, 0)
     MinimizeButton.Size = UDim2.new(0, 30, 1, 0)
     MinimizeButton.Font = Enum.Font.GothamSemibold
-    MinimizeButton.Text = "-"
+    MinimizeButton.Text = "_"
     MinimizeButton.TextColor3 = Color3.new(1, 1, 1)
     MinimizeButton.TextSize = 14
-
+    
     local isMinimized = false
-
+    local originalSize = Main.Size -- Store the original size of the Main frame
+    
     MinimizeButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
         if isMinimized then
@@ -179,7 +180,7 @@ function lib:Window(text, preset, closebind)
             Title.Visible = true
             TabHold.Visible = false
         else
-            Main.Size = UDim2.new(0, 400, 0, 300)
+            Main.Size = originalSize -- Restore the original size
             Title.Visible = true
             TabHold.Visible = true
         end

@@ -95,6 +95,7 @@ function lib:Window(text, preset, closebind)
     local Title = Instance.new("TextLabel")
     local TabFolder = Instance.new("Folder")
     local DragFrame = Instance.new("Frame")
+    local MinimizeButton = Instance.new("TextButton")
 
     Main.Name = "Main"
     Main.Parent = ui
@@ -118,6 +119,41 @@ function lib:Window(text, preset, closebind)
     TabHoldLayout.SortOrder = Enum.SortOrder.LayoutOrder
     TabHoldLayout.Padding = UDim.new(0, 11)
 
+    Title.Name = "Title"
+    Title.Parent = Main
+    Title.BackgroundColor3 = PresetColor
+    Title.BackgroundTransparency = 0.5
+    Title.BorderSizePixel = 0
+    Title.Size = UDim2.new(1, 0, 0, 25)
+    Title.Font = Enum.Font.GothamSemibold
+    Title.Text = text
+    Title.TextColor3 = Color3.new(1, 1, 1)
+    Title.TextSize = 14
+
+    DragFrame.Name = "DragFrame"
+    DragFrame.Parent = Title
+    DragFrame.BackgroundColor3 = PresetColor
+    DragFrame.BackgroundTransparency = 0.5
+    DragFrame.BorderSizePixel = 0
+    DragFrame.Size = UDim2.new(1, 0, 0, 25)
+    DragFrame.ZIndex = 10
+
+    MinimizeButton.Name = "MinimizeButton"
+    MinimizeButton.Parent = DragFrame
+    MinimizeButton.BackgroundColor3 = PresetColor
+    MinimizeButton.BackgroundTransparency = 0.5
+    MinimizeButton.BorderSizePixel = 0
+    MinimizeButton.Position = UDim2.new(1, -35, 0, 0)
+    MinimizeButton.Size = UDim2.new(0, 30, 1, 0)
+    MinimizeButton.Font = Enum.Font.GothamSemibold
+    MinimizeButton.Text = "_"
+    MinimizeButton.TextColor3 = Color3.new(1, 1, 1)
+    MinimizeButton.TextSize = 14
+
+    MinimizeButton.MouseButton1Click:Connect(function()
+        Main.Visible = false
+    end)
+    
     Title.Name = "Title"
     Title.Parent = Main
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)

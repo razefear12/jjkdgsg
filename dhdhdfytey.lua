@@ -2,8 +2,6 @@ local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12
 
 local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyama"}
 
-local localPlayer = game.Players.LocalPlayer
-
 local args = {
     [1] = "Thx4300MNOuwohanaIsBack"
 }

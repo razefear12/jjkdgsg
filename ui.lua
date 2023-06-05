@@ -125,14 +125,18 @@ function lib:Window(text, preset, closebind)
 
     Title.Name = "Title"
     Title.Parent = Main
-    Title.BackgroundColor3 = PresetColor
     Title.BackgroundTransparency = 0.5
     Title.BorderSizePixel = 0
     Title.Size = UDim2.new(1, 0, 0, 25)
     Title.Font = Enum.Font.GothamSemibold
     Title.Text = text
-    Title.TextColor3 = Color3.new(1, 1, 1)
     Title.TextSize = 14
+    
+    coroutine.wrap(function()
+        while wait() do
+            Title.TextColor3 = Color3.fromHSV(lib.RainbowColorValue, 1, 1)
+        end
+    end)()
 
     DragFrame.Name = "DragFrame"
     DragFrame.Parent = Title

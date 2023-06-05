@@ -1678,6 +1678,41 @@ function lib:Window(text, preset, closebind)
                 self.WatermarkText.Text = Text
             end
 
+            local WatermarkLabel = lib:CreateLabel({
+                Position = UDim2.new(0, 5, 0, 0);
+                Size = UDim2.new(1, -4, 1, 0);
+                TextSize = 14;
+                TextXAlignment = Enum.TextXAlignment.Left;
+                ZIndex = 203;
+                Parent = InnerFrame;
+            });
+        
+            lib.Watermark = WatermarkOuter;
+            lib.WatermarkText = WatermarkLabel;
+            lib:MakeDraggable(lib.Watermark);
+
+            local WatermarkOuter = lib:Create('Frame', {
+                BorderColor3 = Color3.new(0, 0, 0);
+                Position = UDim2.new(0, 100, 0, -25);
+                Size = UDim2.new(0, 213, 0, 20);
+                ZIndex = 200;
+                Visible = false;
+                Parent = ScreenGui;
+            });
+        
+            local WatermarkInner = lib:Create('Frame', {
+                BackgroundColor3 = lib.MainColor;
+                BorderColor3 = lib.AccentColor;
+                BorderMode = Enum.BorderMode.Inset;
+                Size = UDim2.new(1, 0, 1, 0);
+                ZIndex = 201;
+                Parent = WatermarkOuter;
+            });
+        
+            lib:AddToRegistry(WatermarkInner, {
+                BorderColor3 = 'AccentColor';
+            });
+
             Bind.MouseButton1Click:Connect(
                 function()
                     BindText.Text = "..."

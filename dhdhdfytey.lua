@@ -42,6 +42,11 @@ DungeonFarm:Button("Dungeon 2", function()
     loadstring(game:HttpGet("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw", true))()
 end)
 
+DungeonFarm:Button("Dungeon 3", function()
+    lib:Notification("Dungeon | 3", "Executed", "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Skeereddo/name/main/krnl", true))()
+end)
+
 DungeonFarm:Button("Dungeon | Anti-Afk", function()
     lib:Notification("Dungeon | Anti-Afk", "Executed", "OK")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()

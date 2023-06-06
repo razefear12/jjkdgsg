@@ -30,9 +30,6 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
-
-local mugen = win:Tab("Mugen")
-
 local DungeonFarm = win:Tab("Dungeon")
 
 DungeonFarm:Button("Dungeon 1", function()
@@ -80,15 +77,4 @@ end)
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Spins Codes | Fast 75 spins", function()
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
-end)
-
-local changeclr = win:Tab("Change UI Color")
-
-changeclr:Colorpicker("Change UI Color", Color3.fromRGB(140, 44, 224), function(t)
-    lib:ChangePresetColor(Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255))
-end)
-
-
-changeclr:Colorpicker("Colorpicker", Color3.fromRGB(255, 0, 0), function(t)
-    print(t)
 end)

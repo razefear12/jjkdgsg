@@ -76,5 +76,6 @@ end)
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Spins Codes | Fast 75 spins", function()
+    task.wait(.13)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
 end)

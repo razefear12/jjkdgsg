@@ -31,43 +31,49 @@ maintab:Button("Farm | FPS-BOOST", function()
 end)
 
 
-maintab:Toggle("Test", function()
-    -- Выполнение первого скрипта один раз
-    local args1 = {
-        [1] = "fans_combat_slash",
-        [2] = game:GetService("Players").LocalPlayer,
-        [3] = game:GetService("Players").LocalPlayer.Character,
-        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-        [6] = 919,
-        [9] = 99999
-    }
-
-    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-
--- Выполнение второго скрипта четыре раза
-    for i = 1, 4 do
-        local args2 = {
+maintab:Toggle("Test", function(toggled)
+    -- Проверяем, активирован ли переключатель
+    if toggled then
+        -- Выполнение первого скрипта один раз
+        local args1 = {
             [1] = "fans_combat_slash",
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
             [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-            [6] = 4,
+            [6] = 919,
             [9] = 99999
         }
 
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
-    end
-
-    -- Циклическое повторение первого и второго скрипта
-    while true do
-        -- Выполнение первого скрипта один раз
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
 
         -- Выполнение второго скрипта четыре раза
         for i = 1, 4 do
+            local args2 = {
+                [1] = "fans_combat_slash",
+                [2] = game:GetService("Players").LocalPlayer,
+                [3] = game:GetService("Players").LocalPlayer.Character,
+                [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+                [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+                [6] = 4,
+                [9] = 99999
+            }
+
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
+        end
+
+        -- Циклическое повторение первого и второго скрипта
+        while toggled do
+            -- Выполнение первого скрипта один раз
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+
+            -- Выполнение второго скрипта четыре раза
+            for i = 1, 4 do
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
+            end
+
+            -- Добавьте небольшую задержку перед следующей итерацией
+            task.wait() -- Можно указать время задержки, например, task.wait(0.1)
         end
     end
 end)

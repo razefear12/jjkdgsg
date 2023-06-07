@@ -140,7 +140,7 @@ local godModeLoop
 local function startGodMode()
     if isGodModeEnabled then
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(godmodeakazabda1, godmodeakazabda2, godmodeakazabda3, godmodeakazabda4)
-        wait(1) -- Ожидаем 1 секунду перед следующим повторением
+        wait(1.5) -- Ожидаем 1 секунду перед следующим повторением
         startGodMode()
     end
 end

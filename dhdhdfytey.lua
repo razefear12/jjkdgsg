@@ -159,6 +159,15 @@ farm:Toggle("Toggle 2", false, function(toggleState)
     end
 end)
 
+local misc = win:Tab("Misc")
+
+misc:Toggle("Kamado Heal (Only Demon)", false, function(t)
+
+    local healkamadon = true
+
+    game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(healkamadon)
+
+end)
 
 
 

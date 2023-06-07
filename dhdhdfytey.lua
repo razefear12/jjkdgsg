@@ -32,7 +32,6 @@ end)
 
 maintab:Toggle("Toggle", false, function(t)
     if t then
-        lib:Notification("test", "Executed", "OK")
         local args1 = {
             [1] = "fans_combat_slash",
             [2] = game:GetService("Players").LocalPlayer,
@@ -43,35 +42,39 @@ maintab:Toggle("Toggle", false, function(t)
             [9] = 99999
         }
     
+        local args2 = {
+            [1] = "fans_combat_slash",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 4,
+            [9] = 99999
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
+        
+        task.wait(1.5)
+
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-    
-    -- Выполнение второго скрипта четыре раза
-        for i = 1, 4 do
-            local args2 = {
-                [1] = "fans_combat_slash",
-                [2] = game:GetService("Players").LocalPlayer,
-                [3] = game:GetService("Players").LocalPlayer.Character,
-                [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-                [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-                [6] = 4,
-                [9] = 99999
-            }
-    
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
-        end
-    
         -- Циклическое повторение первого и второго скрипта
         while true do
-            -- Выполнение первого скрипта один раз
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-    
             -- Выполнение второго скрипта четыре раза
             for i = 1, 4 do
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
             end
+    
+            -- Задержка в 1.5 секунды
+            task.wait(1.5)
+    
+            -- Выполнение второго скрипта четыре раза
+            -- Выполнение первого скрипта один раз
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
         end
     end
 end)
+
+
 
 local DungeonFarm = win:Tab("Dungeon")
 
@@ -126,4 +129,20 @@ end)
 spins:Button("Spins Codes | Fast 75 spins", function()
     task.wait(.13)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
+end)
+
+
+
+local Teleport = win:Tab("Teleport")
+
+
+Teleport:Button("Teleport", function()
+
+local args = {
+    [1] = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript",
+    [2] = 436704.21677269996,
+    [3] = "Nomay Village"
+}
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(unpack(args))
 end)

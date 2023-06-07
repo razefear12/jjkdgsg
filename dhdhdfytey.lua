@@ -140,18 +140,20 @@ local godModeLoop
 local function startGodMode()
     if isGodModeEnabled then
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(godmodeakazabda1, godmodeakazabda2, godmodeakazabda3, godmodeakazabda4)
-        godModeLoop = game:GetService("RunService").Heartbeat:Connect(startGodMode)
-    else
-        if godModeLoop then
-            godModeLoop:Disconnect()
-        end
+        wait(1) -- Ожидаем 1 секунду перед следующим повторением
+        startGodMode()
     end
 end
 
 misc:Toggle("Akaza BDA (God Mode)", false, function(t)
     isGodModeEnabled = t
-    startGodMode()
+    if isGodModeEnabled then
+        startGodMode()
+    elseif godModeLoop then
+        godModeLoop:Disconnect()
+    end
 end)
+
 
 
 local DungeonFarm = win:Tab("Dungeon")

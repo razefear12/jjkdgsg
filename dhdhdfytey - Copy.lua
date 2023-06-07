@@ -102,6 +102,65 @@ farm:Toggle("Killaura (only for players)", false, function(t)
     end
 end)
 
+/*
+-- Получаем ссылки на игрока и NPC
+local player = game.Players.LocalPlayer
+local npcFolder = game.Workspace.Mobs.Bosses
+
+-- Определяем расстояние между NPC и игроком
+local distance = 10
+
+-- Создаем список доступных NPC
+local npcOptions = {}
+
+-- Заполняем список npcOptions из папки npcFolder
+for _, npcObj in ipairs(npcFolder:GetChildren()) do
+        table.insert(npcOptions, npcObj.Name)
+end
+
+-- Функция для обработки выбранного NPC
+local function selectNPC(npcName)
+    -- Найдите соответствующий объект NPC на основе его имени
+    local selectedNPC = npcFolder:FindFirstChild(npcName)
+
+    if selectedNPC then
+        while true do
+            -- Определяем позицию и ориентацию выбранного NPC
+            local npcPosition = selectedNPC.PrimaryPart.Position
+            local npcOrientation = selectedNPC.PrimaryPart.CFrame.LookVector
+
+            -- Рассчитываем позицию игрока с учетом смещения
+            local playerPosition = npcPosition - npcOrientation * distance
+
+            -- Устанавливаем позицию игрока
+            player.Character.HumanoidRootPart.CFrame = CFrame.new(playerPosition)
+
+            -- Ждем перед обновлением позиции игрока
+            wait()
+        end
+    else
+        print("NPC not found:", npcName)
+    end
+end
+
+-- Создаем выпадающий список
+local dropdown = farm:Dropdown("Select boss", npcOptions, function(selectedOption)
+    -- Вызываем функцию selectNPC, передавая выбранный NPC из выпадающего списка
+    selectNPC(selectedOption)
+end)
+
+farm:Toggle("Toggle 2", false, function(toggleState)
+    if toggleState then
+        local selectedOption = dropdown:GetSelected()
+
+        -- Вызываем функцию selectNPC, передавая выбранный NPC из выпадающего списка
+        selectNPC(selectedOption)
+    else
+        -- Дополнительные действия, если toggle выключен
+    end
+end)
+*/
+
 local misc = win:Tab("Misc")
 
 local kamadonhealon = true

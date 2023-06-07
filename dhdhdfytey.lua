@@ -63,7 +63,7 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
         -- Циклическое повторение первого и второго скрипта
         while true do
             -- Выполнение второго скрипта четыре раза
-            for i = 1, 4 do
+            for i = 1, 10 do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
             end

@@ -31,12 +31,35 @@ maintab:Button("Farm | FPS-BOOST", function()
 end)
 
 
+
+
 local farm = win:Tab("Farm")
+
+local WeaponSelector = {"Combat", "Sword", "Skull", "Scythe", "Fans"} -- Обновленный список оружия
+local selectedOption = WeaponSelector[1] -- Значение по умолчанию
+
+farm:Dropdown("Select Weapon:", WeaponSelector, function(option)
+    selectedOption = option
+end)
 
 farm:Toggle("Killaura V1 (fans)", false, function(t)
     if t then
+        local weapon
+
+        if selectedOption == "Combat" then
+            weapon = "combat_slash"
+        elseif selectedOption == "Sword" then
+            weapon = "sword_slash"
+        elseif selectedOption == "Skull" then
+            weapon = "skull_slash"
+        elseif selectedOption == "Scythe" then
+            weapon = "scythe_slash"
+        elseif selectedOption == "Fans" then
+            weapon = "fans_combat_slash"
+        end
+
         local args1 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -44,9 +67,38 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             [6] = 919,
             [9] = 99999
         }
-    
         local args2 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 1,
+            [9] = 99999
+        }
+
+        local args3 = {
+            [1] = weapon,
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 2,
+            [9] = 99999
+        }
+
+        local args4 = {
+            [1] = weapon,
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 3,
+            [9] = 99999
+        }
+
+        local args5 = {
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -55,28 +107,19 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             [9] = 99999
         }
 
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
-        
-        task.wait(1.5)
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-        -- Циклическое повторение первого и второго скрипта
         while true do
-            -- Выполнение второго скрипта четыре раза
-            for i = 1, 4 do
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
-            end
-    
-            -- Задержка в 1.5 секунды
-            task.wait(1.5)
-    
-            -- Выполнение первого скрипта один раз
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args3, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args4, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args5, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
+   
+            
+            wait(1.5) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
         end
     end
 end)
+
 
 farm:Toggle("Killaura (only for players)", false, function(t)
     
@@ -101,65 +144,6 @@ farm:Toggle("Killaura (only for players)", false, function(t)
         wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
     end
 end)
-
-/*
--- Получаем ссылки на игрока и NPC
-local player = game.Players.LocalPlayer
-local npcFolder = game.Workspace.Mobs.Bosses
-
--- Определяем расстояние между NPC и игроком
-local distance = 10
-
--- Создаем список доступных NPC
-local npcOptions = {}
-
--- Заполняем список npcOptions из папки npcFolder
-for _, npcObj in ipairs(npcFolder:GetChildren()) do
-        table.insert(npcOptions, npcObj.Name)
-end
-
--- Функция для обработки выбранного NPC
-local function selectNPC(npcName)
-    -- Найдите соответствующий объект NPC на основе его имени
-    local selectedNPC = npcFolder:FindFirstChild(npcName)
-
-    if selectedNPC then
-        while true do
-            -- Определяем позицию и ориентацию выбранного NPC
-            local npcPosition = selectedNPC.PrimaryPart.Position
-            local npcOrientation = selectedNPC.PrimaryPart.CFrame.LookVector
-
-            -- Рассчитываем позицию игрока с учетом смещения
-            local playerPosition = npcPosition - npcOrientation * distance
-
-            -- Устанавливаем позицию игрока
-            player.Character.HumanoidRootPart.CFrame = CFrame.new(playerPosition)
-
-            -- Ждем перед обновлением позиции игрока
-            wait()
-        end
-    else
-        print("NPC not found:", npcName)
-    end
-end
-
--- Создаем выпадающий список
-local dropdown = farm:Dropdown("Select boss", npcOptions, function(selectedOption)
-    -- Вызываем функцию selectNPC, передавая выбранный NPC из выпадающего списка
-    selectNPC(selectedOption)
-end)
-
-farm:Toggle("Toggle 2", false, function(toggleState)
-    if toggleState then
-        local selectedOption = dropdown:GetSelected()
-
-        -- Вызываем функцию selectNPC, передавая выбранный NPC из выпадающего списка
-        selectNPC(selectedOption)
-    else
-        -- Дополнительные действия, если toggle выключен
-    end
-end)
-*/
 
 local misc = win:Tab("Misc")
 
@@ -199,17 +183,57 @@ local godModeLoop
 local function startGodMode()
     if isGodModeEnabled then
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(godmodeakazabda1, godmodeakazabda2, godmodeakazabda3, godmodeakazabda4)
-        godModeLoop = game:GetService("RunService").Heartbeat:Connect(startGodMode)
-    else
-        if godModeLoop then
-            godModeLoop:Disconnect()
-        end
+        wait(1.5)
+        startGodMode()
     end
 end
 
 misc:Toggle("Akaza BDA (God Mode)", false, function(t)
     isGodModeEnabled = t
-    startGodMode()
+    if isGodModeEnabled then
+        startGodMode()
+    elseif godModeLoop then
+        godModeLoop:Disconnect()
+    end
+end)
+
+local indominatewill1 = "indominate_will_damage"
+local indominatewill2 = game:GetService("Players").LocalPlayer.Character
+
+local indominatewillEnabled = false
+local indominatewillLoop
+
+local function startindominatewill()
+    if indominatewillEnabled then
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(25)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(25)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(25)
+        startindominatewill()
+    end
+end
+
+misc:Toggle("Indominate Stun (only if you have skill)", false, function(t)
+    indominatewillEnabled = t
+    if indominatewillEnabled then
+        startindominatewill()
+    elseif indominatewillLoop then
+        indominatewillLoop:Disconnect()
+    end
 end)
 
 
@@ -257,15 +281,30 @@ end)
 spins:Button("Daily | Auto-Spins", function()
     lib:Notification("Daily | Auto-Spins", "Executed", "OK")
     while true do
-        wait()
+        task.wait(.13)
         game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
     end 
 end)
 
+
+local code1 = "Thx4300MNOuwohanaIsBack"
+local code2 = "Thx4300MNOuwohanaIsBack"
+local code3 = "Thx4300MNOuwohanaIsBack"
+local code4 = "Thx4300MNOuwohanaIsBack"
+local code5 = "Thx4300MNOuwohanaIsBack"
+
 -- Обработчик события для выполнения Lua-скрипта
-spins:Button("Spins Codes | Fast 75 spins", function()
-    task.wait(.13)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(unpack(args))
+spins:Button("Auto use Codes", function()
+    lib:Notification("Auto use Codes", "Executed", "OK")
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code1)
+    task.wait(11)
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code2)
+    task.wait(11)
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code3)
+    task.wait(11)
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code4)
+    task.wait(11)
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code5)
 end)
 
 

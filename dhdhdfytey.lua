@@ -31,12 +31,37 @@ maintab:Button("Farm | FPS-BOOST", function()
 end)
 
 
+
+
 local farm = win:Tab("Farm")
 
-farm:Toggle("Killaura V1 (fans)", false, function(t)
+local WeaponSelector = {"Combat", "Sword", "Claw", "Scythe", "Fans"} -- Обновленный список оружия
+local selectedOption = WeaponSelector[1] -- Значение по умолчанию
+local isToggleEnabled = false -- Переменная для отслеживания состояния переключателя
+
+farm:Dropdown("Select Weapon:", WeaponSelector, function(option)
+    selectedOption = option
+end)
+
+farm:Toggle("Killaura V1", false, function(t)
+    isToggleEnabled = t -- Обновляем состояние переключателя
     if t then
+        local weapon
+
+        if selectedOption == "Combat" then
+            weapon = "fist_combat"
+        elseif selectedOption == "Sword" then
+            weapon = "sword_combat_Slash"
+        elseif selectedOption == "Claw" then
+            weapon = "claw_Combat_Slash"
+        elseif selectedOption == "Scythe" then
+            weapon = "Scythe_Combat_Slash"
+        elseif selectedOption == "Fans" then
+            weapon = "fans_combat_slash"
+        end
+
         local args1 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -44,9 +69,8 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             [6] = 919,
             [9] = 99999
         }
-    
         local args2 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -56,7 +80,7 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
         }
 
         local args3 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -66,7 +90,7 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
         }
 
         local args4 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -76,7 +100,7 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
         }
 
         local args5 = {
-            [1] = "fans_combat_slash",
+            [1] = weapon,
             [2] = game:GetService("Players").LocalPlayer,
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -85,42 +109,105 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             [9] = 99999
         }
 
-        while true do
+        while isToggleEnabled do -- Добавляем проверку состояния переключателя в условие цикла
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args3, 1, 9))
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args4, 1, 9))
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args5, 1, 9))
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
    
-            
             wait(1.5) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
         end
     end
 end)
 
 
-farm:Toggle("Killaura (only for players)", false, function(t)
-    
-    while true do
-        local plr = game:GetService('Players').LocalPlayer.Name
-    
-        for i,v in pairs(game:GetService('Players'):GetPlayers()) do
-            local oh1 = "fans_combat_slash"
-            local oh2 = game:GetService("Players").LocalPlayer
-            local oh3 = game:GetService("Players").LocalPlayer.Character
-            local oh4 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-            local oh5 = game:GetService("Players").LocalPlayer.Character.Humanoid
-            local oh6 = 4
-            local oh7 = false
-            local oh8 = false
-            local oh9 = 0
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(oh1, oh2, oh3, oh4, oh5, oh6, oh7, oh8, oh9)
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(oh1, oh2, oh3, oh4, oh5, oh6, oh7, oh8, oh9)
-            wait(1.3) -- Добавляем задержку в 1.3 секунды между итерациями
-        end
-    
-        wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+farm:Toggle("Killaura (JUMP)", false, function(t)
+    isToggleEnabled = t -- Обновляем состояние переключателя
+    if t then
+     local weapon
+
+     if selectedOption == "Combat" then
+        weapon = "fist_combat"
+    elseif selectedOption == "Sword" then
+        weapon = "sword_combat_Slash"
+    elseif selectedOption == "Claw" then
+        weapon = "claw_Combat_Slash"
+    elseif selectedOption == "Scythe" then
+        weapon = "Scythe_Combat_Slash"
+    elseif selectedOption == "Fans" then
+        weapon = "fans_combat_slash"
     end
+    
+    local oh1 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = 0,
+        [8] = 0,
+        [9] = 99999
+    }
+    local oh2 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 1,
+        [7] = 0,
+        [8] = 0,
+        [9] = 99999
+    }
+
+    local oh3 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 2,
+        [7] = 0,
+        [8] = 0,
+        [9] = 99999
+    }
+
+    local oh4 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 3,
+        [7] = 0,
+        [8] = 0,
+        [9] = 99999
+    }
+
+    local oh5 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 4,
+        [7] = 0,
+        [8] = 0,
+        [9] = 99999
+    }
+
+    while isToggleEnabled do -- Добавляем проверку состояния переключателя в условие цикла
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh2, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh3, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh4, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh5, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(oh1, 1, 9))
+
+        wait(1.5) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+    end
+end
 end)
 
 local misc = win:Tab("Misc")
@@ -172,45 +259,6 @@ misc:Toggle("Akaza BDA (God Mode)", false, function(t)
         startGodMode()
     elseif godModeLoop then
         godModeLoop:Disconnect()
-    end
-end)
-
-local indominatewill1 = "indominate_will_damage"
-local indominatewill2 = game:GetService("Players").LocalPlayer.Character
-
-local indominatewillEnabled = false
-local indominatewillLoop
-
-local function startindominatewill()
-    if indominatewillEnabled then
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(25)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(25)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
-        wait(25)
-        startindominatewill()
-    end
-end
-
-misc:Toggle("Indominate Stun (only if you have skill)", false, function(t)
-    indominatewillEnabled = t
-    if indominatewillEnabled then
-        startindominatewill()
-    elseif indominatewillLoop then
-        indominatewillLoop:Disconnect()
     end
 end)
 

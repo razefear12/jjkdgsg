@@ -133,16 +133,22 @@ end)
 
 
 
-local Teleport = win:Tab("Teleport")
+local Teleports = win:Tab("Teleports")
 
+local teleportOptions = {"Nomay Village", "Option 2", "Option 3", "Option 4", "Option 5"}
+local selectedOption = teleportOptions[1] -- Значение по умолчанию
 
-Teleport:Button("Teleport", function()
+Teleports:Dropdown("Teleport Location", teleportOptions, function(option)
+    selectedOption = option
+end)
 
-local args = {
-    [1] = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript",
-    [2] = 436704.21677269996,
-    [3] = "Nomay Village"
-}
+Teleports:Button("Teleport", function()
+    local plr = game:GetService('Players').LocalPlayer.Name
 
-game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(unpack(args))
+    for i, v in pairs(game:GetService('Players'):GetPlayers()) do
+        local oh1 = "Players.LocalPlayer.Name.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+        local oh2 = 436704.21677269996
+        local oh3 = selectedOption -- Используем выбранную опцию из выпадающего списка
+        game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(oh1, oh2, oh3)
+    end
 end)

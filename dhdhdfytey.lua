@@ -67,7 +67,6 @@ maintab:Toggle("Toggle", false, function(t)
             -- Задержка в 1.5 секунды
             task.wait(1.5)
     
-            -- Выполнение второго скрипта четыре раза
             -- Выполнение первого скрипта один раз
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
         end
@@ -135,7 +134,7 @@ end)
 
 local Teleports = win:Tab("Teleports")
 
-local teleportOptions = {"Nomay Village", "Village 2"} -- Добавлено новое место телепортации
+local teleportOptions = {"Nomay Village", "Village 2", "Mugen Train Station", "Devourers Jaw"} -- Обновленный список локаций
 local selectedOption = teleportOptions[1] -- Значение по умолчанию
 
 Teleports:Dropdown("Teleport Location", teleportOptions, function(option)
@@ -149,11 +148,18 @@ Teleports:Button("Teleport", function()
     local oh2 = 436704.21677269996
 
     if selectedOption == "Village 2" then
-        oh1 = "Players.arimaqqew.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
         oh2 = 438042.4649977
+    elseif selectedOption == "Mugen Train Station" then
+        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+        oh2 = 438393.42154929996
+    elseif selectedOption == "Devourers Jaw" then
+        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+        oh2 = 438450.62906049995
     end
 
     local oh3 = selectedOption -- Используем выбранную опцию из выпадающего списка
 
     game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(oh1, oh2, oh3)
 end)
+

@@ -30,7 +30,7 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
-tab:Toggle("Toggle", false, function(t)
+maintab:Toggle("Toggle", false, function(t)
     if t then
         lib:Notification("test", "Executed", "OK")
         local args1 = {
@@ -70,6 +70,7 @@ tab:Toggle("Toggle", false, function(t)
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
             end
         end
+    end
 end)
 
 local DungeonFarm = win:Tab("Dungeon")

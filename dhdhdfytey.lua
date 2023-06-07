@@ -51,32 +51,36 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             [3] = game:GetService("Players").LocalPlayer.Character,
             [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
             [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-            [6] = 4,
+            [6] = 1,
             [9] = 99999
         }
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
-        
-        task.wait(1.5)
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
         -- Циклическое повторение первого и второго скрипта
+        local counter = 0
+        local limit = 4
         while true do
-            -- Выполнение второго скрипта четыре раза
-            for i = 1, 10 do
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
-            end
+            -- Выполнение первого скрипта один раз
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
     
             -- Задержка в 1.5 секунды
             task.wait(1.5)
-    
-            -- Выполнение первого скрипта один раз
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+
+                        -- Выполнение второго скрипта четыре раза
+                        for i = 1, limit do
+                            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
+                            counter = counter + 1
+                            if counter % limit == 0 then
+                                args2[6] = (args2[6] + 1) % (limit + 1)
+                                if args2[6] == 0 then
+                                    args2[6] = 1
+                                end
+                            end
+                        end
         end
     end
 end)
+
 
 farm:Toggle("Killaura (only for players)", false, function(t)
     

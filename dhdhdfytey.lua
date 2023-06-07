@@ -54,29 +54,46 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             [6] = 1,
             [9] = 99999
         }
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
-        -- Циклическое повторение первого и второго скрипта
-        local counter = 0
-        local limit = 4
-        while true do
-            -- Выполнение первого скрипта один раз
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
-    
-            -- Задержка в 1.5 секунды
-            task.wait(1.5)
 
-                        -- Выполнение второго скрипта четыре раза
-                        for i = 1, limit do
-                            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
-                            counter = counter + 1
-                            if counter % limit == 0 then
-                                args2[6] = (args2[6] + 1) % (limit + 1)
-                                if args2[6] == 0 then
-                                    args2[6] = 1
-                                end
-                            end
-                        end
+        local args3 = {
+            [1] = "fans_combat_slash",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 2,
+            [9] = 99999
+        }
+
+        local args4 = {
+            [1] = "fans_combat_slash",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 3,
+            [9] = 99999
+        }
+
+        local args5 = {
+            [1] = "fans_combat_slash",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 4,
+            [9] = 99999
+        }
+
+        while true do
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args3, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args4, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args5, 1, 9))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
+   
+            
+            wait(1.5) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
         end
     end
 end)

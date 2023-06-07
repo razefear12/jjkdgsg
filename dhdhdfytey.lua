@@ -65,6 +65,7 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
             -- Выполнение второго скрипта четыре раза
             for i = 1, 4 do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args2))
             end
     
             -- Задержка в 1.5 секунды
@@ -72,14 +73,14 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
     
             -- Выполнение первого скрипта один раз
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
         end
     end
 end)
 
-farm:Toggle("Killaura (only for players)", function(t)
-    _G.on = t -- Устанавливаем значение переменной _G.on в соответствии с состоянием опции
+farm:Toggle("Killaura (only for players)", false, function(t)
     
-    while _G.on do
+    while true do
         local plr = game:GetService('Players').LocalPlayer.Name
     
         for i,v in pairs(game:GetService('Players'):GetPlayers()) do
@@ -114,7 +115,6 @@ local npcOptions = {}
 -- Заполняем список npcOptions из папки npcFolder
 for _, npcObj in ipairs(npcFolder:GetChildren()) do
         table.insert(npcOptions, npcObj.Name)
-    end
 end
 
 -- Функция для обработки выбранного NPC
@@ -231,10 +231,10 @@ end)
 Teleports:Button("Teleport", function()
     local plr = game:GetService('Players').LocalPlayer.Name
 
-    local oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
-    local oh2 = 436704.21677269996
-
-    if selectedOption == "Village 2" then
+    if selectedOption == "Nomay Village" then
+        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+        oh2 = 436704.21677269996
+    elseif selectedOption == "Village 2" then
         oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
         oh2 = 438042.4649977
     elseif selectedOption == "Mugen Train Station" then
@@ -249,4 +249,3 @@ Teleports:Button("Teleport", function()
 
     game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(oh1, oh2, oh3)
 end)
-

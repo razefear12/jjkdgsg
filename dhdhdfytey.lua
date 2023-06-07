@@ -174,6 +174,19 @@ misc:Toggle("Kamado Heal (Only Demon)", false, function(t)
 end)
 
 
+local wardrumsbuffon = true
+local wardrumsbuffoff = false
+
+misc:Toggle("Dmg Buff (All Race)", false, function(t)
+
+    wardrumsbuffon = t
+    if not t then
+        wardrumsbuffon = false
+        wardrumsbuffoff = true
+    end
+    game:GetService("ReplicatedStorage").Remotes.war_Drums_remote:FireServer(wardrumsbuffon)
+end)
+
 
 
 local DungeonFarm = win:Tab("Dungeon")

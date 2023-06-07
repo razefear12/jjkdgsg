@@ -30,11 +30,9 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
-
-maintab:Toggle("Test", function(toggled)
-    -- Проверяем, активирован ли переключатель
-    if toggled then
-        -- Выполнение первого скрипта один раз
+tab:Toggle("Toggle", false, function(t)
+    if t then
+        lib:Notification("test", "Executed", "OK")
         local args1 = {
             [1] = "fans_combat_slash",
             [2] = game:GetService("Players").LocalPlayer,
@@ -44,10 +42,10 @@ maintab:Toggle("Test", function(toggled)
             [6] = 919,
             [9] = 99999
         }
-
+    
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-
-        -- Выполнение второго скрипта четыре раза
+    
+    -- Выполнение второго скрипта четыре раза
         for i = 1, 4 do
             local args2 = {
                 [1] = "fans_combat_slash",
@@ -58,24 +56,20 @@ maintab:Toggle("Test", function(toggled)
                 [6] = 4,
                 [9] = 99999
             }
-
+    
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
         end
-
+    
         -- Циклическое повторение первого и второго скрипта
-        while toggled do
+        while true do
             -- Выполнение первого скрипта один раз
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
-
+    
             -- Выполнение второго скрипта четыре раза
             for i = 1, 4 do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
             end
-
-            -- Добавьте небольшую задержку перед следующей итерацией
-            task.wait() -- Можно указать время задержки, например, task.wait(0.1)
         end
-    end
 end)
 
 local DungeonFarm = win:Tab("Dungeon")

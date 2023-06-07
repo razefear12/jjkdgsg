@@ -213,6 +213,7 @@ local code4 = Thx4300MNOuwohanaIsBack
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Auto use Codes", function()
+    lib:Notification("Auto use Codes", "Executed", "OK")
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code1)
     task.wait(10)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code2)

@@ -77,30 +77,28 @@ farm:Toggle("Killaura V1 (fans)", false, function(t)
 end)
 
 farm:Toggle("Killaura (only for players)", function(t)
-    if t then
-        _G.on = true
-
-        while _G.on do
-            local plr = game:GetService('Players').LocalPlayer.Name
-        
-            for i,v in pairs(game:GetService('Players'):GetPlayers()) do
-                local oh1 = "fans_combat_slash"
-                local oh2 = game:GetService("Players").LocalPlayer
-                local oh3 = game:GetService("Players").LocalPlayer.Character
-                local oh4 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-                local oh5 = game:GetService("Players").LocalPlayer.Character.Humanoid
-                local oh6 = 4
-                local oh7 = 0
-                local oh8 = 1
-                local oh9 = 99999
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(oh1, oh2, oh3, oh4, oh5, oh6, oh7, oh8, oh9)
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(oh1, oh2, oh3, oh4, oh5, oh6, oh7, oh8, oh9)
-                wait(1.3) -- Добавляем задержку в 1.3 секунды между итерациями
-            end
-        
-            wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+    _G.on = t -- Устанавливаем значение переменной _G.on в соответствии с состоянием опции
+    
+    while _G.on do
+        local plr = game:GetService('Players').LocalPlayer.Name
+    
+        for i,v in pairs(game:GetService('Players'):GetPlayers()) do
+            local oh1 = "fans_combat_slash"
+            local oh2 = game:GetService("Players").LocalPlayer
+            local oh3 = game:GetService("Players").LocalPlayer.Character
+            local oh4 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+            local oh5 = game:GetService("Players").LocalPlayer.Character.Humanoid
+            local oh6 = 4
+            local oh7 = false
+            local oh8 = false
+            local oh9 = 0
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(oh1, oh2, oh3, oh4, oh5, oh6, oh7, oh8, oh9)
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(oh1, oh2, oh3, oh4, oh5, oh6, oh7, oh8, oh9)
+            wait(1.3) -- Добавляем задержку в 1.3 секунды между итерациями
         end
-    end    
+    
+        wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+    end
 end)
 
 -- Получаем ссылки на игрока и NPC
@@ -115,7 +113,6 @@ local npcOptions = {}
 
 -- Заполняем список npcOptions из папки npcFolder
 for _, npcObj in ipairs(npcFolder:GetChildren()) do
-    if npcObj:IsA("Model") then
         table.insert(npcOptions, npcObj.Name)
     end
 end

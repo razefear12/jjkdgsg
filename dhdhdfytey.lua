@@ -206,21 +206,24 @@ spins:Button("Daily | Auto-Spins", function()
 end)
 
 
-local code1 = Thx4300MNOuwohanaIsBack
-local code2 = Thx4300MNOuwohanaIsBack
-local code3 = Thx4300MNOuwohanaIsBack
-local code4 = Thx4300MNOuwohanaIsBack
+local code1 = "Thx4300MNOuwohanaIsBack"
+local code2 = "Thx4300MNOuwohanaIsBack"
+local code3 = "Thx4300MNOuwohanaIsBack"
+local code4 = "Thx4300MNOuwohanaIsBack"
+local code5 = "Thx4300MNOuwohanaIsBack"
 
 -- Обработчик события для выполнения Lua-скрипта
 spins:Button("Auto use Codes", function()
     lib:Notification("Auto use Codes", "Executed", "OK")
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code1)
-    task.wait(10)
+    task.wait(11)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code2)
-    task.wait(10)
+    task.wait(11)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code3)
-    task.wait(10)
+    task.wait(11)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code4)
+    task.wait(11)
+    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code5)
 end)
 
 

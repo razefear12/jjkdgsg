@@ -161,13 +161,18 @@ end)
 
 local misc = win:Tab("Misc")
 
+local kamadonhealon = true
+local kamadonhealoff = false
+
 misc:Toggle("Kamado Heal (Only Demon)", false, function(t)
-
-    local healkamadon = true
-
-    game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(healkamadon)
-
+    kamadonhealon = t
+    if not t then
+        kamadonhealon = false
+        kamadonhealoff = true
+    end
+    game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(kamadonhealon)
 end)
+
 
 
 

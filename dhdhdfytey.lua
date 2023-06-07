@@ -30,6 +30,48 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
+
+maintab:Toggle("Test", function()
+    -- Выполнение первого скрипта один раз
+    local args1 = {
+        [1] = "fans_combat_slash",
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [9] = 99999
+    }
+
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+
+-- Выполнение второго скрипта четыре раза
+    for i = 1, 4 do
+        local args2 = {
+            [1] = "fans_combat_slash",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = game:GetService("Players").LocalPlayer.Character,
+            [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+            [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+            [6] = 4,
+            [9] = 99999
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
+    end
+
+    -- Циклическое повторение первого и второго скрипта
+    while true do
+        -- Выполнение первого скрипта один раз
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1))
+
+        -- Выполнение второго скрипта четыре раза
+        for i = 1, 4 do
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args2))
+        end
+    end
+end)
+
 local DungeonFarm = win:Tab("Dungeon")
 
 DungeonFarm:Button("Dungeon 1", function()

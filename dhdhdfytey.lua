@@ -156,29 +156,29 @@ end)
 
 local indominatewill1 = "indominate_will_damage"
 local indominatewill2 = game:GetService("Players").LocalPlayer.Character
-local indominatewill3 = CFrame.new(783.0520629882812, 500.50152587890625, 937.664794921875) * CFrame.Angles(3.141590118408203, 1.1067860126495361, -3.1415903568267822)
+
 local indominatewillEnabled = false
 local indominatewillLoop
 
 local function startindominatewill()
     if indominatewillEnabled then
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
         wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
         wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
-        wait(20)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
-        wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
         wait(25)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
         wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
         wait(3)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(25)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2)
         wait(25)
         startindominatewill()
     end

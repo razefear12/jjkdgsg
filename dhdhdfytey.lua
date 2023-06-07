@@ -102,6 +102,7 @@ farm:Toggle("Killaura (only for players)", false, function(t)
     end
 end)
 
+/*
 -- Получаем ссылки на игрока и NPC
 local player = game.Players.LocalPlayer
 local npcFolder = game.Workspace.Mobs.Bosses
@@ -158,6 +159,7 @@ farm:Toggle("Toggle 2", false, function(toggleState)
         -- Дополнительные действия, если toggle выключен
     end
 end)
+*/
 
 local misc = win:Tab("Misc")
 
@@ -187,6 +189,28 @@ misc:Toggle("Dmg Buff (All Race)", false, function(t)
     game:GetService("ReplicatedStorage").Remotes.war_Drums_remote:FireServer(wardrumsbuffon)
 end)
 
+local godmodeakazabda1 = "skil_ting_asd"
+local godmodeakazabda2 = game:GetService("Players").LocalPlayer
+local godmodeakazabda3 = "akaza_bda_compass_needle"
+local godmodeakazabda4 = 1
+local isGodModeEnabled = false
+local godModeLoop
+
+local function startGodMode()
+    if isGodModeEnabled then
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(godmodeakazabda1, godmodeakazabda2, godmodeakazabda3, godmodeakazabda4)
+        godModeLoop = game:GetService("RunService").Heartbeat:Connect(startGodMode)
+    else
+        if godModeLoop then
+            godModeLoop:Disconnect()
+        end
+    end
+end
+
+misc:Toggle("Akaza BDA (God Mode)", false, function(t)
+    isGodModeEnabled = t
+    startGodMode()
+end)
 
 
 local DungeonFarm = win:Tab("Dungeon")

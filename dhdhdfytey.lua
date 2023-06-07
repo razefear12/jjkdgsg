@@ -154,6 +154,28 @@ misc:Toggle("Akaza BDA (God Mode)", false, function(t)
     end
 end)
 
+local indominatewill1 = "indominate_will_damage"
+local indominatewill2 = game:GetService("Players").LocalPlayer.Character
+local indominatewill3 = CFrame.new(783.0520629882812, 500.50152587890625, 937.664794921875) * CFrame.Angles(3.141590118408203, 1.1067860126495361, -3.1415903568267822)
+local indominatewillEnabled = false
+local indominatewillLoop
+
+local function startindominatewill()
+    if indominatewillEnabled then
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(indominatewill1, indominatewill2, indominatewill3)
+        wait(2)
+        startindominatewill()
+    end
+end
+
+misc:Toggle("Indominate Stun (only if you have skill)", false, function(t)
+    indominatewillEnabled = t
+    if indominatewillEnabled then
+        startindominatewill()
+    elseif indominatewillLoop then
+        indominatewillLoop:Disconnect()
+    end
+end)
 
 
 local DungeonFarm = win:Tab("Dungeon")

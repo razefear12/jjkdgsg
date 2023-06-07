@@ -200,7 +200,7 @@ end)
 spins:Button("Daily | Auto-Spins", function()
     lib:Notification("Daily | Auto-Spins", "Executed", "OK")
     while true do
-        wait()
+        task.wait(.13)
         game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
     end 
 end)

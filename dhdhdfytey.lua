@@ -2,10 +2,6 @@ local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12
 
 local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyama"}
 
-local args = {
-    [1] = "Thx4300MNOuwohanaIsBack"
-}
-
 local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
 local maintab = win:Tab("Main")
@@ -31,16 +27,6 @@ maintab:Button("Farm | FPS-BOOST", function()
 end)
 
 
-function TweenToTarget(CFgo)
-
-    local tween_s = game:service"TweenService"
-    local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/250, Enum.EasingStyle.Linear)
-    local tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
-    tween:Play()
-  
-  end
-
-
 
 local farm = win:Tab("Farm")
 
@@ -57,7 +43,7 @@ farm:Toggle("Auto Tween NPC", false, function(t)
 
         function TweenToTarget(CFgo)
             local tween_s = game:GetService("TweenService")
-            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / currentTweenSpeed, Enum.EasingStyle.Linear)
+            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / 250, Enum.EasingStyle.Linear)
             local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = CFgo})
             tween:Play()
         end

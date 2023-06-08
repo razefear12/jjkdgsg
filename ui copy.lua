@@ -95,9 +95,7 @@ function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(44, 120, 224)
     fs = false
-    
     local Main = Instance.new("Frame")
-
     local TabHold = Instance.new("Frame")
     local TabHoldLayout = Instance.new("UIListLayout")
     local Title = Instance.new("TextLabel")
@@ -105,27 +103,6 @@ function lib:Window(text, preset, closebind)
     local DragFrame = Instance.new("Frame")
     local MinimizeButton = Instance.new("TextButton")
     local UICorner = Instance.new("UICorner") -- New line
-
-    local RainbowShadow = Instance.new("Frame")
-    RainbowShadow.Name = "RainbowShadow"
-    RainbowShadow.Parent = Main
-    RainbowShadow.BackgroundColor3 = Color3.new(0, 0, 0)
-    RainbowShadow.BackgroundTransparency = 0.5
-    RainbowShadow.BorderSizePixel = 0
-    RainbowShadow.Position = UDim2.new(0, 5, 0, 5) -- Adjust the position as needed
-    RainbowShadow.Size = UDim2.new(1, -10, 1, -10) -- Adjust the size as needed
-
-    -- Function to animate the rainbow shadow
-    local function AnimateRainbowShadow()
-        while true do
-            for hue = 0, 1, 0.01 do
-                RainbowShadow.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
-                wait(0.05) -- Adjust the delay between color changes as needed
-            end
-        end
-    end
-
-    spawn(AnimateRainbowShadow) -- Start the rainbow shadow animation
 
     Main.Name = "Main"
     Main.Parent = ui
@@ -139,10 +116,6 @@ function lib:Window(text, preset, closebind)
     Main.Visible = true
 
     UICorner.Parent = Main -- New line
-
-    return Main
-end
-
 
     TabHold.Name = "TabHold"
     TabHold.Parent = Main

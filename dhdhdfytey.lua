@@ -105,7 +105,7 @@ farm:Toggle("Auto Tween NPC", false, function(t)
 end)
 
 -- Добавляем слайдер под скриптом
-farm:Slider("Slider Below Script", 0, 300, currentTweenSpeed, function(t)
+farm:Slider("Tween Speed:", 0, 300, currentTweenSpeed, function(t)
     currentTweenSpeed = t -- Обновляем значение скорости Tween
 end)
 

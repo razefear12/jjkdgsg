@@ -263,6 +263,46 @@ misc:Toggle("Akaza BDA (God Mode)", false, function(t)
 end)
 
 
+
+local BuffsSelector = {"Exp+Chance", "Polar", "Devourer", "Damage", "Champion"} -- Обновленный список баффов
+local selectedOption = BuffsSelector[1] -- Значение по умолчанию
+local expchancebuffon = false -- Переменная для отслеживания состояния переключателя
+local buffs -- Переменная для хранения выбранного баффа
+
+misc:Dropdown("Select Buffs:", BuffsSelector, function(option)
+    selectedOption = option
+end)
+
+misc:Toggle("Farm Buffs", false, function(t)
+    expchancebuffon = t -- Обновляем состояние переключателя
+    if t then
+        if selectedOption == "Exp+Chance" then
+            buffs = "Yatagarasu Mask"
+        elseif selectedOption == "Polar" then
+            buffs = "Polar Top"
+        elseif selectedOption == "Devourer" then
+            buffs = "Devourer Top"
+        elseif selectedOption == "Damage" then
+            buffs = "Rengoku Haorie"
+        elseif selectedOption == "Champion" then
+            buffs = "Champion Haorie"
+        end
+
+        for i, v in pairs(game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].EquippedItemStats:GetChildren()) do
+            if v:IsA("StringValue") then
+                v.Value = buffs
+            end
+        end
+    else
+        for i, v in pairs(game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].EquippedItemStats:GetChildren()) do
+            if v:IsA("StringValue") then
+                v.Value = "" -- Отключаем баффы, устанавливая пустое значение
+            end
+        end
+    end
+end)
+
+
 local DungeonFarm = win:Tab("Dungeon")
 
 DungeonFarm:Button("Dungeon 1", function()

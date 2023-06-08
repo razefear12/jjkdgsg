@@ -400,7 +400,7 @@ misc:Button("Anti SunDamage (Only Demon)", function()
 end)
 
 misc:Button("Inf Stamina", function()
-game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
 end)
 
 misc:Button("Inf Breathing", function()

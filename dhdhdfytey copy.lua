@@ -36,8 +36,6 @@ end)
 local farm = win:Tab("Farm")
 
 local currentTweenSpeed = 250 -- Переменная для хранения текущей скорости Tween
-local isNoclipEnabled = false -- Флаг, указывающий, включен ли режим noclip
-local isAntiFallEnabled = false -- Флаг, указывающий, включен ли режим anti fall
 
 farm:Toggle("Auto Tween NPC", false, function(t)
     isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
@@ -106,17 +104,11 @@ farm:Toggle("Auto Tween NPC", false, function(t)
     end
 end)
 
-game:GetService("RunService").RenderStepped:Connect(function()
-    if isToggleMobsTweenEnabled then
-        if isNoclipEnabled then
-            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-        end
-
-        if isAntiFallEnabled and game.Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
-            game.Players.LocalPlayer.Character.Humanoid:ChangeState(3)
-        end
-    end
+-- Добавляем слайдер под скриптом
+farm:Slider("Tween Speed:", 0, 300, currentTweenSpeed, function(t)
+    currentTweenSpeed = t -- Обновляем значение скорости Tween
 end)
+
 
 
 

@@ -395,7 +395,17 @@ end)
 
 
 
+misc:Button("Anti SunDamage (Only Demon)", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Sun_Damage.Disabled = true
+end)
 
+misc:Button("Inf Stamina", function()
+game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+end)
+
+misc:Button("Inf Breathing", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
+end)
 
 
 

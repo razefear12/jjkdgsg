@@ -45,3 +45,35 @@ spawn(function()
         end
     end
 end)
+
+
+
+
+
+
+function TweenToTarget(CFgo)
+
+    local tween_s = game:service"TweenService"
+    local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/250, Enum.EasingStyle.Linear)
+    local tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
+    tween:Play()
+  
+  end
+  
+  Mobs = "Tengen_Ouwigahara" -- change the name of the mobs you want to farm
+  getfenv().plr = game.Players.LocalPlayer
+  rs = game:service'RunService'.RenderStepped
+  Start = true
+  spawn(function()
+     while rs:wait() do
+        if Start then
+           for i,v in pairs(workspace.Mobs.Tengen:GetChildren()) do -- u can Change (workspace.NPCS) to the NPC/Mobs Folder in the game you are playing
+              if string.match(v.Name, Mobs) then
+                 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                    TweenToTarget(v.HumanoidRootPart.CFrame) -- Start tweening to Mobs/NPC
+                 end
+              end
+           end
+        end
+     end
+  end)

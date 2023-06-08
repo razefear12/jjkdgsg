@@ -35,18 +35,18 @@ end)
 
 local farm = win:Tab("Farm")
 
+local currentTweenSpeed = 250 -- Переменная для хранения текущей скорости Tween
 
 farm:Toggle("Auto Tween NPC", false, function(t)
     isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
     if t then
-
         local currentMobFolder = nil -- Переменная для хранения текущей папки моба
         local currentMobName = "" -- Переменная для хранения текущего названия моба
         local attackingMob = nil -- Переменная для хранения ссылки на текущего атакуемого моба
 
         function TweenToTarget(CFgo)
             local tween_s = game:GetService("TweenService")
-            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / 250, Enum.EasingStyle.Linear)
+            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / currentTweenSpeed, Enum.EasingStyle.Linear)
             local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = CFgo})
             tween:Play()
         end
@@ -102,6 +102,11 @@ farm:Toggle("Auto Tween NPC", false, function(t)
             end
         end)
     end
+end)
+
+-- Добавляем слайдер под скриптом
+farm:Slider("Slider Below Script", 0, 300, currentTweenSpeed, function(t)
+    currentTweenSpeed = t -- Обновляем значение скорости Tween
 end)
 
 

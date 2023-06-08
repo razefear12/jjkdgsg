@@ -26,8 +26,6 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
-
-
 local farm = win:Tab("Farm")
 
 local currentTweenSpeed = 250 -- Переменная для хранения текущей скорости Tween
@@ -112,6 +110,40 @@ game:GetService("RunService").RenderStepped:Connect(function()
         end
     end
 end)
+
+
+farm:Toggle("Auto Tween Boss", false, function(t)
+    isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
+    if t then
+
+        function TweenToTarget(CFgo)
+
+            local tween_s = game:service"TweenService"
+            local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/250, Enum.EasingStyle.Linear)
+            local tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
+            tween:Play()
+          
+          end
+          
+          Mobs = "Akeza" -- change the name of the mobs you want to farm
+          getfenv().plr = game.Players.LocalPlayer
+          rs = game:service'RunService'.RenderStepped
+          Start = true
+          spawn(function()
+             while rs:wait() do
+                if Start then
+                   for i,v in pairs(workspace.Mobs.Bosses:GetChildren()) do -- u can Change (workspace.NPCS) to the NPC/Mobs Folder in the game you are playing
+                      if string.match(v.Name, Mobs) then
+                         if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                            TweenToTarget(v.HumanoidRootPart.CFrame) -- Start tweening to Mobs/NPC
+                         end
+                      end
+                   end
+                end
+             end
+        end)
+    end    
+ end)
 
 
 
@@ -291,6 +323,12 @@ farm:Toggle("Killaura (JUMP)", false, function(t)
 end
 end)
 
+farm:Toggle("Auto Loot Chest", false, function(t)
+    isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
+    if t then
+
+    end      
+end)
 local misc = win:Tab("Misc")
 
 local kamadonhealon = true

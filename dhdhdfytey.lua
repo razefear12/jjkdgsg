@@ -31,6 +31,15 @@ maintab:Button("Farm | FPS-BOOST", function()
 end)
 
 
+function TweenToTarget(CFgo)
+
+    local tween_s = game:service"TweenService"
+    local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/250, Enum.EasingStyle.Linear)
+    local tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
+    tween:Play()
+  
+  end
+
 
 
 local farm = win:Tab("Farm")
@@ -401,9 +410,17 @@ end)
 
 misc:Button("Inf Stamina", function()
     game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = false
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
 end)
 
 misc:Button("Inf Breathing", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = false
+    wait(0.5)
     game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
 end)
 

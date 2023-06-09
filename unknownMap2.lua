@@ -2,7 +2,7 @@ local lib = loadstring(game:HttpGet"https://raw.githubusercontent.com/razefear12
 
 local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibira","Soyama"}
 
-local win = lib:Window("UnknownHub | Project Slayers", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
+local win = lib:Window("UnknownHub | Project Slayers (Map 2)", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
 local maintab = win:Tab("Main")
 

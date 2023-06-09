@@ -105,19 +105,44 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
-maintab:Toggle("Auto Loot Chest", false, function(t)
+local misc = win:Tab("Misc")
+
+
+misc:Button("Anti SunDamage (Only Demon)", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Sun_Damage.Disabled = true
+end)
+
+misc:Button("Inf Stamina", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = false
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+end)
+
+misc:Button("Inf Breathing", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = false
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
+end)
+
+misc:Toggle("Auto Loot Chest", false, function(t)
     isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
     if t then
 
     end      
 end)
 
-local misc = win:Tab("Misc")
+
+local buffstab = win:Tab("Buffs")
+
 
 local kamadonhealon = true
 local kamadonhealoff = false
 
-misc:Toggle("Kamado Heal (Only Demon)", false, function(t)
+buffstab:Toggle("Kamado Heal (Only Demon)", false, function(t)
     kamadonhealon = t
     if not t then
         kamadonhealon = false
@@ -130,7 +155,7 @@ end)
 local wardrumsbuffon = true
 local wardrumsbuffoff = false
 
-misc:Toggle("Dmg Buff (All Race)", false, function(t)
+buffstab:Toggle("Dmg Buff (All Race)", false, function(t)
 
     wardrumsbuffon = t
     if not t then
@@ -159,7 +184,7 @@ local function startGodMode()
     end
 end
 
-misc:Toggle("Akaza BDA (God Mode)", false, function(t)
+buffstab:Toggle("Akaza BDA (God Mode)", false, function(t)
     isGodModeEnabled = t
     if isGodModeEnabled then
         startGodMode()
@@ -168,18 +193,16 @@ misc:Toggle("Akaza BDA (God Mode)", false, function(t)
     end
 end)
 
-
-
 local BuffsSelector = {"Exp+Chance", "Polar", "Devourer", "Damage", "Champion"} -- Обновленный список баффов
 local selectedOption = BuffsSelector[1] -- Значение по умолчанию
 local expchancebuffon = false -- Переменная для отслеживания состояния переключателя
 local buffs -- Переменная для хранения выбранного баффа
 
-misc:Dropdown("Select Buffs:", BuffsSelector, function(option)
+buffstab:Dropdown("Select Buffs:", BuffsSelector, function(option)
     selectedOption = option
 end)
 
-misc:Toggle("Farm Buffs", false, function(t)
+buffstab:Toggle("Farm Buffs", false, function(t)
     expchancebuffon = t -- Обновляем состояние переключателя
     if t then
         if selectedOption == "Exp+Chance" then
@@ -206,29 +229,6 @@ misc:Toggle("Farm Buffs", false, function(t)
             end
         end
     end
-end)
-
-
-
-
-misc:Button("Anti SunDamage (Only Demon)", function()
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Sun_Damage.Disabled = true
-end)
-
-misc:Button("Inf Stamina", function()
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = false
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
-end)
-
-misc:Button("Inf Breathing", function()
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = false
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
 end)
 
 

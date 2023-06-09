@@ -4,12 +4,6 @@ local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibi
 
 local win = lib:Window("UnknownHub | Project Slayers (Dungeon)", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
-
-maintab:Button("Farm | FPS-BOOST", function()
-    lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
-end)
-
 local maintab = win:Tab("Main")
 
 local isNoclipEnabled = false -- Флаг, указывающий, включен ли режим noclip

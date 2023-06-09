@@ -128,12 +128,34 @@ misc:Button("Inf Breathing", function()
     game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
 end)
 
-misc:Toggle("Auto Loot Chest", false, function(t)
-    isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
-    if t then
-
-    end      
+misc:Toggle("Auto Loot Chest", false, function(value)
+    getgenv().AutoCollectChest = value 
 end)
+
+
+--Collect Chest
+
+spawn(function()
+    while task.wait() do
+    if AutoCollectChest then
+    for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+    if v.Name == "Loot_Chest" then
+    for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
+    if game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name].Inventory.Items:FindFirstChild(c.Name) then
+    local args = { [1] = c.Name }
+    v["Add_To_Inventory"]:InvokeServer(unpack(args))
+    delay(0.5, function() c:Destroy() end)
+    else
+    local args = { [1] = c.Name }
+    v["Add_To_Inventory"]:InvokeServer(unpack(args))
+    delay(0.5, function() c:Destroy() end)
+    end
+    end
+    end
+    end
+    end
+    end
+    end)
 
 
 local buffstab = win:Tab("Buffs")

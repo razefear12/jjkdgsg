@@ -625,6 +625,106 @@ killaura:Toggle("Killaura (JUMP)", false, function(t)
 end
 end)
 
+
+local orbs = win:Tab("Auto-Orbs")
+
+--Instances
+local Map = workspace.Map
+
+--#region Functions
+local spawn, wait = task.spawn, task.wait
+
+local FireServer = Instance.new("RemoteEvent").FireServer
+local InvokeServer = Instance.new("RemoteFunction").InvokeServer
+
+
+
+function Teleport(Position : Vector3, Offset : Vector3, Speed : number)
+    local Distance = Client:DistanceFromCharacter(Position + (Offset or Vector3.zero))
+    
+    if Distance < 2500 then
+        local Tween = TweenService:Create(
+            Client.Character.HumanoidRootPart,
+            TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
+            {CFrame = CFrame.new(Position + (Offset or Vector3.zero)
+        )})
+
+        Tween:Play()
+
+        return Tween.Completed:Wait()
+    else
+        Client.Character.HumanoidRootPart.CFrame = Position + (Offset or Vector3.zero)
+        
+        return wait()
+    end
+end
+
+local ToggleInstaKillon = "InstaKill"
+local ToggleHealthRegenon = "HealthRegen"
+local ToggleStaminaRegenon = "StaminaRegen"
+local ToggleBloodMoneyon = "BloodMoney"
+local ToggleDoublePointson = "DoublePoints"
+
+local ToggleInstaKilloff = ""
+local ToggleHealthRegenoff = ""
+local ToggleStaminaRegenoff = ""
+local ToggleBloodMoneyoff = ""
+local ToggleDoublePointsoff = ""
+
+local Orbs = {}
+
+orbs:Toggle("Auto Pick Up Orbs", false, function(t)
+    
+end)
+
+orbs:Toggle("InstaKill", false, function(t)
+    if t then
+        table.insert(Orbs, ToggleInstaKillon)
+    else
+        table.remove(Orbs, table.find(Orbs, ToggleInstaKillon))
+    end
+end)
+
+orbs:Toggle("HealthRegen", false, function(t)
+    if t then
+        table.insert(Orbs, ToggleHealthRegenon)
+    else
+        table.remove(Orbs, table.find(Orbs, ToggleHealthRegenon))
+    end
+end)
+
+orbs:Toggle("StaminaRegen", false, function(t)
+    if t then
+        table.insert(Orbs, ToggleStaminaRegenon)
+    else
+        table.remove(Orbs, table.find(Orbs, ToggleStaminaRegenon))
+    end
+end)
+
+orbs:Toggle("BloodMoney", false, function(t)
+    if t then
+        table.insert(Orbs, ToggleBloodMoneyon)
+    else
+        table.remove(Orbs, table.find(Orbs, ToggleBloodMoneyon))
+    end
+end)
+
+orbs:Toggle("DoublePoints", false, function(t)
+    if t then
+        table.insert(Orbs, ToggleDoublePointson)
+    else
+        table.remove(Orbs, table.find(Orbs, ToggleDoublePointson))
+    end
+end)
+
+function ClaimOrbs()
+    for i, Orb in Map:GetChildren() do
+        if table.find(Orbs, Orb.Name) then
+            pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
+        end
+    end
+end
+
 local Credits = win:Tab("Credits")
 
 Credits:Button("Join/Copy Discord",function()

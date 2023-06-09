@@ -18,6 +18,8 @@ maintab:Toggle("Auto Tween NPC", false, function(t)
 
         local noclipE       = false
         local antifall      = false
+
+
         
         local function noclip()
             for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
@@ -30,17 +32,17 @@ maintab:Toggle("Auto Tween NPC", false, function(t)
 
         function TweenToTarget(CFgo)
             local tween_s = game:GetService("TweenService")
-            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / 250, Enum.EasingStyle.Linear)
+            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / 400, Enum.EasingStyle.Linear)
             local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = CFgo})
-
-
+        
             if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
                 antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
                 antifall.Velocity = Vector3.new(0,0,0)
                 noclipE = game:GetService("RunService").Stepped:Connect(noclip)
                 tween:Play()
+                noclip() -- Добавлен вызов функции noclip() после создания BodyVelocity
             end
-
+        
             tween.Completed:Connect(function()
                 antifall:Destroy()
                 noclipE:Disconnect()

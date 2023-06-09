@@ -130,6 +130,63 @@ spawn(function()
     end)
 
 
+    --Instances
+    local Map = workspace.Map
+
+    --#region Functions
+    local spawn, wait = task.spawn, task.wait
+
+    local FireServer = Instance.new("RemoteEvent").FireServer
+    local InvokeServer = Instance.new("RemoteFunction").InvokeServer
+
+
+
+    function Teleport(Position : Vector3, Offset : Vector3, Speed : number)
+        local Distance = Client:DistanceFromCharacter(Position + (Offset or Vector3.zero))
+        
+        if Distance < 2500 then
+            local Tween = TweenService:Create(
+                Client.Character.HumanoidRootPart,
+                TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
+                {CFrame = CFrame.new(Position + (Offset or Vector3.zero)
+            )})
+
+            Tween:Play()
+
+            return Tween.Completed:Wait()
+        else
+            Client.Character.HumanoidRootPart.CFrame = Position + (Offset or Vector3.zero)
+            
+            return wait()
+        end
+    end
+
+    local autoPickUpOrbsEnabled = false
+
+    maintab:Toggle("Auto Pick Up Orbs", false, function(t)
+        autoPickUpOrbsEnabled = t
+        if autoPickUpOrbsEnabled then
+            local Orbs = {
+                "InstaKill",
+                "HealthRegen",
+                "StaminaRegen",
+                "BloodMoney",
+                "DoublePoints",
+            }
+            
+            function ClaimOrbs()
+                if autoPickUpOrbsEnabled then
+                    for i, Orb in Map:GetChildren() do
+                        if table.find(Orbs, Orb.Name) then
+                            pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
+                        end
+                    end
+                end
+            end
+        end
+    end)
+
+
 maintab:Button("Farm | FPS-BOOST", function()
     lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
@@ -624,90 +681,6 @@ killaura:Toggle("Killaura (JUMP)", false, function(t)
     end
 end
 end)
-
-
-local orbs = win:Tab("Auto-Orbs")
-
---Instances
-local Map = workspace.Map
-
---#region Functions
-local spawn, wait = task.spawn, task.wait
-
-local FireServer = Instance.new("RemoteEvent").FireServer
-local InvokeServer = Instance.new("RemoteFunction").InvokeServer
-
-
-
-function Teleport(Position : Vector3, Offset : Vector3, Speed : number)
-    local Distance = Client:DistanceFromCharacter(Position + (Offset or Vector3.zero))
-    
-    if Distance < 2500 then
-        local Tween = TweenService:Create(
-            Client.Character.HumanoidRootPart,
-            TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
-            {CFrame = CFrame.new(Position + (Offset or Vector3.zero)
-        )})
-
-        Tween:Play()
-
-        return Tween.Completed:Wait()
-    else
-        Client.Character.HumanoidRootPart.CFrame = Position + (Offset or Vector3.zero)
-        
-        return wait()
-    end
-end
-
-local ToggleInstaKillon = "InstaKill",
-local ToggleHealthRegenon = "HealthRegen",
-local ToggleStaminaRegenon = "StaminaRegen",
-local ToggleBloodMoneyon = "BloodMoney",
-local ToggleDoublePointson = "DoublePoints",
-
-local ToggleInstaKilloff = ""
-local ToggleHealthRegenoff = ""
-local ToggleStaminaRegenoff = ""
-local ToggleBloodMoneyoff = ""
-local ToggleDoublePointsoff = ""
-
-local Orbs = {}
-
-local autoPickUpOrbsEnabled = false
-
-orbs:Toggle("Auto Pick Up Orbs", false, function(t)
-    autoPickUpOrbsEnabled = t
-    if autoPickUpOrbsEnabled then
-        local Orbs = {
-            "InstaKill",
-            "HealthRegen",
-            "StaminaRegen",
-            "BloodMoney",
-            "DoublePoints",
-        }
-        
-        function ClaimOrbs()
-            if autoPickUpOrbsEnabled then
-                for i, Orb in Map:GetChildren() do
-                    if table.find(Orbs, Orb.Name) then
-                        pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
-                    end
-                end
-            end
-        end
-    end
-end)
-
-
-function ClaimOrbs()
-    if autoPickUpOrbsEnabled then
-        for i, Orb in Map:GetChildren() do
-            if table.find(Orbs, Orb.Name) then
-                pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
-            end
-        end
-    end
-end
 
 
 local Credits = win:Tab("Credits")

@@ -100,35 +100,7 @@ maintab:Toggle("Auto Tween NPC", false, function(t)
     end
 end)
 
-maintab:Button("Farm | FPS-BOOST", function()
-    lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
-end)
-
-local misc = win:Tab("Misc")
-
-
-misc:Button("Anti SunDamage (Only Demon)", function()
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Sun_Damage.Disabled = true
-end)
-
-misc:Button("Inf Stamina", function()
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = false
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
-end)
-
-misc:Button("Inf Breathing", function()
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = false
-    wait(0.5)
-    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
-end)
-
-misc:Toggle("Auto Loot Chest", false, function(value)
+maintab:Toggle("Auto Loot Chest", false, function(value)
     getgenv().AutoCollectChest = value 
 end)
 
@@ -156,6 +128,35 @@ spawn(function()
     end
     end
     end)
+
+
+maintab:Button("Farm | FPS-BOOST", function()
+    lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
+end)
+
+local misc = win:Tab("Misc")
+
+
+misc:Button("Anti SunDamage (Only Demon)", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Sun_Damage.Disabled = true
+end)
+
+misc:Button("Inf Stamina", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = false
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Stamina.Disabled = true
+end)
+
+misc:Button("Inf Breathing", function()
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = false
+    wait(0.5)
+    game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
+end)
 
 
 local buffstab = win:Tab("Buffs")

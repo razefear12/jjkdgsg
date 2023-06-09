@@ -752,3 +752,43 @@ Teleports:Button("Teleport", function()
 
     game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(oh1, oh2, oh3)
 end)
+
+
+
+local targetPosition = Vector3.new(436704.21677269996, 0, 0) -- Указанные вами координаты
+
+Teleports:Button("Test Teleport", false, function(t)
+    if t then
+        local noclipE = false
+        local antifall = false
+
+        local function noclip()
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                if v:IsA("BasePart") and v.CanCollide == true then
+                    v.CanCollide = false
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+                end
+            end
+        end
+
+        function TweenToTarget(CFgo)
+            local tween_s = game:GetService("TweenService")
+            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo).Magnitude / 250, Enum.EasingStyle.Linear)
+            local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, { CFrame = CFgo })
+
+            if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+                antifall.Velocity = Vector3.new(0, 0, 0)
+                noclipE = game:GetService("RunService").Stepped:Connect(noclip)
+                tween:Play()
+            end
+
+            tween.Completed:Connect(function()
+                antifall:Destroy()
+                noclipE:Disconnect()
+            end)
+        end
+
+        TweenToTarget(targetPosition)
+    end
+end)

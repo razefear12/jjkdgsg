@@ -182,4 +182,35 @@ end)
 
     --------------------------NEW VERSION
 
-
+    
+    local function findLootChest()
+        local lootChest = nil
+        for _, debree in ipairs(workspace.Debree:GetChildren()) do
+            if debree:IsA("Model") and debree:FindFirstChild("Loot_Chest") and debree.DataCost.Value == 329 then
+                lootChest = debree.Loot_Chest
+                break
+            end
+        end
+        return lootChest
+    end
+    
+    local function lootItemsFromChest(lootChest)
+        local dropsFolder = lootChest:FindFirstChild("Drops")
+        if dropsFolder then
+            for _, dropItem in ipairs(dropsFolder:GetChildren()) do
+                local itemName = dropItem.Name
+                lootChest.Add_To_Inventory:InvokeServer(itemName)
+                print("Лутаем предмет:", itemName)
+            end
+        else
+            print("Drops folder not found in Loot Chest.")
+        end
+    end
+    
+    local lootChest = findLootChest()
+    if lootChest then
+        lootItemsFromChest(lootChest)
+    else
+        print("Loot Chest not found or does not meet the criteria.")
+    end
+    

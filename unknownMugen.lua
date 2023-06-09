@@ -138,8 +138,8 @@ maintab:Toggle("Auto Mugen Clash", false, function(value)
 end)
 
 spawn(function()
-    while wait() do -- task.wait() заменено на просто wait()
-        if getgenv().AutoMugenClash then -- Добавлена getgenv() перед AutoMugenClash
+    while task.wait() do
+        if getgenv().AutoMugenClash then
 
             local args = {
                 [1] = "Change_Value",
@@ -556,95 +556,6 @@ killaura:Toggle("Killaura For Bosses", false, function(t)
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh16, 1, 9))
 
         wait(2) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
-    end
-end
-end)
-
-
-killaura:Toggle("Killaura (JUMP)", false, function(t)
-    isToggleEnabled = t -- Обновляем состояние переключателя
-    if t then
-     local weapon
-
-     if selectedOption == "Combat" then
-        weapon = "fist_combat"
-    elseif selectedOption == "Sword" then
-        weapon = "Sword_Combat_Slash"
-    elseif selectedOption == "Claw" then
-        weapon = "claw_Combat_Slash"
-    elseif selectedOption == "Scythe" then
-        weapon = "Scythe_Combat_Slash"
-    elseif selectedOption == "Fans" then
-        weapon = "fans_combat_slash"
-    end
-    
-    local oh1 = {
-        [1] = weapon,
-        [2] = game:GetService("Players").LocalPlayer,
-        [3] = game:GetService("Players").LocalPlayer.Character,
-        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-        [6] = 919,
-        [7] = 0,
-        [8] = 0,
-        [9] = 99999
-    }
-    local oh2 = {
-        [1] = weapon,
-        [2] = game:GetService("Players").LocalPlayer,
-        [3] = game:GetService("Players").LocalPlayer.Character,
-        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-        [6] = 1,
-        [7] = 0,
-        [8] = 0,
-        [9] = 99999
-    }
-
-    local oh3 = {
-        [1] = weapon,
-        [2] = game:GetService("Players").LocalPlayer,
-        [3] = game:GetService("Players").LocalPlayer.Character,
-        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-        [6] = 2,
-        [7] = 0,
-        [8] = 0,
-        [9] = 99999
-    }
-
-    local oh4 = {
-        [1] = weapon,
-        [2] = game:GetService("Players").LocalPlayer,
-        [3] = game:GetService("Players").LocalPlayer.Character,
-        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-        [6] = 3,
-        [7] = 0,
-        [8] = 0,
-        [9] = 99999
-    }
-
-    local oh5 = {
-        [1] = weapon,
-        [2] = game:GetService("Players").LocalPlayer,
-        [3] = game:GetService("Players").LocalPlayer.Character,
-        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-        [6] = 4,
-        [7] = 0,
-        [8] = 0,
-        [9] = 99999
-    }
-
-    while isToggleEnabled do -- Добавляем проверку состояния переключателя в условие цикла
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh2, 1, 9))
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh3, 1, 9))
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh4, 1, 9))
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh5, 1, 9))
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(oh1, 1, 9))
-
-        wait(1.3) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
     end
 end
 end)

@@ -561,8 +561,6 @@ misc:Toggle("Farm Buffs", false, function(t)
 end)
 
 
-
-
 misc:Button("Anti SunDamage (Only Demon)", function()
     game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Sun_Damage.Disabled = true
 end)
@@ -582,6 +580,22 @@ misc:Button("Inf Breathing", function()
     wait(0.5)
     game:GetService("Players").LocalPlayer.PlayerScripts.Small_Scripts.Gameplay.Breathing.Disabled = true
 end)
+
+local selectedAmount = 0 -- Переменная для хранения выбранного количества билетов
+
+misc:Slider("Select Amount", 0, 10, 0, function(t)
+    selectedAmount = t -- Сохраняем значение слайдера в переменную
+end)
+
+misc:Button("Buy mugen ticket", function()
+    local args = {
+        [1] = selectedAmount -- Используем выбранное количество билетов
+    }
+
+    game:GetService("ReplicatedStorage").purchase_mugen_ticket:FireServer(unpack(args))
+end)
+
+
 
 
 local Teleports = win:Tab("Teleports")
@@ -615,13 +629,6 @@ Teleports:Button("Teleport", function()
     game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(oh1, oh2, oh3)
 end)
 
-
-
-
-
-
-
-
 local Credits = win:Tab("Credits")
 
 Credits:Button("Join/Copy Discord",function()
@@ -645,8 +652,3 @@ Credits:Button("Join/Copy Discord",function()
                 })
         })
     end)
-
-
-
-
- 

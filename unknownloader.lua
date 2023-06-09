@@ -18,5 +18,5 @@ elseif placeId == 11468159863 then
     print("Nice! <3")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/razefear12/jjkdgsg/main/unknownMap2.lua", true))()
 else
-   print("Script is temporarily not working in this Place ID.")
+   print("Script is temporarily not working on this Place ID.")
 end

@@ -535,7 +535,7 @@ misc:Button("Inf Breathing", function()
 end)
 
 
-Teleports:Button("Teleport to Muzan",function(x)
+misc:Button("Teleport to Muzan",function(x)
     getgenv().GotoMuzan = x
     pcall(function()
     Tween(CFrame.new(game:GetService("Workspace").Muzan.SpawnPos.Value))

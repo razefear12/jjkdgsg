@@ -673,8 +673,13 @@ local ToggleDoublePointsoff = ""
 
 local Orbs = {}
 
+local autoPickUpOrbsEnabled = false
+
 orbs:Toggle("Auto Pick Up Orbs", false, function(t)
-    
+    autoPickUpOrbsEnabled = t
+    if autoPickUpOrbsEnabled then
+        ClaimOrbs()
+    end
 end)
 
 orbs:Toggle("InstaKill", false, function(t)
@@ -718,12 +723,15 @@ orbs:Toggle("DoublePoints", false, function(t)
 end)
 
 function ClaimOrbs()
-    for i, Orb in Map:GetChildren() do
-        if table.find(Orbs, Orb.Name) then
-            pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
+    if autoPickUpOrbsEnabled then
+        for i, Orb in Map:GetChildren() do
+            if table.find(Orbs, Orb.Name) then
+                pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
+            end
         end
     end
 end
+
 
 local Credits = win:Tab("Credits")
 

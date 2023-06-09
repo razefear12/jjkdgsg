@@ -4,6 +4,11 @@ local wanted = {"Kamado","Agatsuma","Rengoku","Uzui","Tomioka","Tokito","Hashibi
 
 local win = lib:Window("UnknownHub | Project Slayers (Map 1)", Color3.fromRGB(140, 44, 224), Enum.KeyCode.RightControl)
 
+_G.Options = {
+
+    AutoPickFlowers = false
+}
+
 local maintab = win:Tab("Main")
 
 maintab:Button("Farm | FPS-BOOST", function()
@@ -543,6 +548,53 @@ misc:Button("Teleport to Muzan",function(x)
 end)
 
 
+
+farm:Toggle("Auto Pick Flowers", function(value)
+    _G.Options.AutoPickFlowers = value
+end)
+
+
+if _G.Options.AutoPickFlowers then
+    local flower = workspace:WaitForChild("Demon_Flowers_Spawn"):WaitForChild("Cube.002", true)
+
+    if flower then
+        local mag = math.floor((Plr.Character:WaitForChild("HumanoidRootPart").Position - flower.Position).magnitude)
+
+        if mag <= 100 then
+            Plr:WaitForChild("HumanoidRootPart").CFrame = flower.CFrame
+        else
+            if flower then
+                TeleportTween(flower.CFrame)
+            end
+        end
+    end
+end
+
+
+if Plr.Character:FindFirstChild("Humanoid") then
+    Plr.Character:WaitForChild("Humanoid").WalkSpeed = 50
+end
+
+if Plr.Character:FindFirstChild("Humanoid") then
+    Plr.Character:WaitForChild("Humanoid").JumpPower = 100
+end
+
+if _G.Options.AutoPickFlowers then
+    local flower = workspace:WaitForChild("Demon_Flowers_Spawn"):WaitForChild("Cube.002", true)
+
+    if flower then
+        local mag = math.floor((Plr.Character:WaitForChild("HumanoidRootPart").Position - flower.Position).magnitude)
+
+        if mag <= 100 then
+            Plr:WaitForChild("HumanoidRootPart").CFrame = flower.CFrame
+        else
+            if flower then
+                TeleportTween(flower.CFrame)
+            end
+        end
+    end
+end
+
 --Auto Eat Souls
 spawn(function()
     while task.wait() do
@@ -557,15 +609,6 @@ spawn(function()
         end
     end
 end)
-
-
-
-
-
-
-
-
-
 
 local Credits = win:Tab("Credits")
 
@@ -590,51 +633,3 @@ Credits:Button("Join/Copy Discord",function()
                 })
         })
     end)
-
-
-
-
-
-
-
-
-
-
---Farm Method
---Farm Method
-spawn(function()
-    while wait() do
-        pcall(function()
-            SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
-            if FarmMethod == "Above" then
-                FarmModes = CFrame.new(0,getgenv().Distance,0) * CFrame.Angles(math.rad(-90),0,0) 
-            elseif FarmMethod == "Below" then
-                FarmModes = CFrame.new(0,-getgenv().Distance,0) * CFrame.Angles(math.rad(90),0,0)
-            elseif FarmMethod == "Behind" then
-                FarmModes = CFrame.new(0,0,getgenv().Distance)
-            end
-            for i,v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
-                Insert = true
-                if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
-                    for i,v2 in pairs(invTable) do if v2 == v.Name then Insert = false end end
-                    if Insert == true then table.insert(invTable, v.Name) end
-                end
-            end
-        end)
-    end
-end)
---No Clip
-spawn(function()
-    game:GetService("RunService").Stepped:Connect(function()
-        if getgenv().AllBosses or TPtoVillage or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
-            for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-                if v:IsA("BasePart") then
-                    v.CanCollide = false    
-                end
-                if v:IsA("Humanoid") then
-                    v:ChangeState(11)
-                end
-            end
-        end
-    end)
-end)

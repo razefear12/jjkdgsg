@@ -10,6 +10,22 @@ maintab:Button("Join to Dungeon", function()
     game:GetService("TeleportService"):Teleport(11468075017)
 end)
 
+local placeID = 11468075017
+
+local function teleportToPlace(placeID)
+    local playerCount = game:GetService("Players"):GetPlayerCountForAsync(placeID)
+    if playerCount == 0 then
+        game:GetService("TeleportService"):Teleport(placeID)
+    else
+        lib:Notification("Server is full.", "", "OK")
+    end
+end
+
+maintab:Button("Join to Dungeon", function()
+    teleportToPlace(placeID)
+end)
+
+
 local spins = win:Tab("Auto-Spins")
 
 -- Обработчик события для выполнения Lua-скрипта

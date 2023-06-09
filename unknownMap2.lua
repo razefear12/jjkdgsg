@@ -64,11 +64,11 @@ end
 local farm = win:Tab("Farm")
 
 
-farm:AddDropdown("Dropdown", BossessTable, '', false, function(value)
+farm:Dropdown("Dropdown", BossessTable, '', false, function(value)
     getgenv().SelectedBoss = value
 end)
 
-farm:AddToggle("Farm Selected Boss", false, function(value)
+farm:Toggle("Farm Selected Boss", false, function(value)
     getgenv().FarmBoss = value 
 end)
 

@@ -6,21 +6,6 @@ local win = lib:Window("UnknownHub | Project Slayers (Map 1)", Color3.fromRGB(14
 
 local maintab = win:Tab("Main")
 
-maintab:Button("Farm (Map 2)", function()
-    lib:Notification("Farm | Sylveon", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ogamertv12/SylveonHub/main/NewLoader.lua", true))()
-end)
-
-maintab:Button("Farm (Map 2) | Only chest", function()
-    lib:Notification("Farm | Sylveon", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ogamertv12/SylveonHub/main/NewLoader.lua", true))()
-end)
-
-maintab:Button("Farm | Anti-Afk", function()
-    lib:Notification("Farm | Anti-Afk", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()
-end)
-
 maintab:Button("Farm | FPS-BOOST", function()
     lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
@@ -28,133 +13,6 @@ end)
 
 local farm = win:Tab("Farm")
 
-local isNoclipEnabled = false -- Флаг, указывающий, включен ли режим noclip
-local isAntiFallEnabled = false -- Флаг, указывающий, включен ли режим anti fall
-
-farm:Toggle("Auto Tween NPC", false, function(t)
-    isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
-    if t then
-        local currentMobFolder = nil -- Переменная для хранения текущей папки моба
-        local currentMobName = "" -- Переменная для хранения текущего названия моба
-        local attackingMob = nil -- Переменная для хранения ссылки на текущего атакуемого моба
-
-        local noclipE       = false
-        local antifall      = false
-        
-        local function noclip()
-            for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-                if v:IsA("BasePart") and v.CanCollide == true then
-                    v.CanCollide = false
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
-                end
-            end
-        end
-
-        function TweenToTarget(CFgo)
-            local tween_s = game:GetService("TweenService")
-            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / 250, Enum.EasingStyle.Linear)
-            local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = CFgo})
-
-
-            if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-                antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
-                antifall.Velocity = Vector3.new(0,0,0)
-                noclipE = game:GetService("RunService").Stepped:Connect(noclip)
-                tween:Play()
-            end
-
-            tween.Completed:Connect(function()
-                antifall:Destroy()
-                noclipE:Disconnect()
-            end)
-        end
-
-        local mobsFolder = workspace.Mobs
-
-        function AttackMob(mob)
-            -- Добавьте свой код атаки для моба
-        end
-
-        function FarmMobs()
-            local mobFolder = mobsFolder:FindFirstChild(currentMobName)
-            if mobFolder and mobFolder:IsA("Folder") then
-                for _, mob in pairs(mobFolder:GetChildren()) do
-                    if mob:IsA("Model") then
-                        if mob:FindFirstChild("HumanoidRootPart") and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
-                            if attackingMob and attackingMob.Parent and attackingMob.Parent.Name == currentMobName then
-                                -- Продолжаем атаку текущего моба
-                                TweenToTarget(attackingMob.HumanoidRootPart.CFrame)
-                                AttackMob(attackingMob)
-                            else
-                                -- Убиваем текущего моба и переходим к следующему
-                                attackingMob = mob
-                                TweenToTarget(mob.HumanoidRootPart.CFrame)
-                                AttackMob(mob)
-                                break -- Прерываем цикл после убийства текущего моба
-                            end
-                        end
-                    end
-                end
-            end
-        end
-
-        getfenv().plr = game.Players.LocalPlayer
-        local rs = game:GetService("RunService").RenderStepped
-        local Start = true
-
-        spawn(function()
-            while rs:wait() do
-                if Start then
-                    local newMobFolder = mobsFolder:FindFirstChild(currentMobName)
-                    if newMobFolder then
-                        FarmMobs()
-                    else
-                        -- Папка моба исчезла, нужно определить новую папку и имя моба
-                        local newMobFolder = mobsFolder:GetChildren()[1]
-                        if newMobFolder then
-                            currentMobName = newMobFolder.Name
-                            FarmMobs()
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end)
-
-
-farm:Toggle("Auto Tween Boss", false, function(t)
-    isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
-    if t then
-
-        function TweenToTarget(CFgo)
-
-            local tween_s = game:service"TweenService"
-            local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/250, Enum.EasingStyle.Linear)
-            local tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
-            tween:Play()
-          
-          end
-          
-          Mobs = "Akeza" -- change the name of the mobs you want to farm
-          getfenv().plr = game.Players.LocalPlayer
-          rs = game:service'RunService'.RenderStepped
-          Start = true
-          spawn(function()
-             while rs:wait() do
-                if Start then
-                   for i,v in pairs(workspace.Mobs.Bosses:GetChildren()) do -- u can Change (workspace.NPCS) to the NPC/Mobs Folder in the game you are playing
-                      if string.match(v.Name, Mobs) then
-                         if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-                            TweenToTarget(v.HumanoidRootPart.CFrame) -- Start tweening to Mobs/NPC
-                         end
-                      end
-                   end
-                end
-             end
-        end)
-    end    
- end)
 
 local WeaponSelector = {"Combat", "Sword", "Claw", "Scythe", "Fans"} -- Обновленный список оружия
 local selectedOption = WeaponSelector[1] -- Значение по умолчанию
@@ -523,12 +381,40 @@ farm:Toggle("Killaura (JUMP)", false, function(t)
 end
 end)
 
-farm:Toggle("Auto Loot Chest", false, function(t)
-    isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
-    if t then
-
-    end      
+farm:Toggle("Auto Loot Chest", false, function(value)
+    getgenv().AutoCollectChest = value 
 end)
+
+
+--Collect Chest
+
+spawn(function()
+    while task.wait() do
+    if AutoCollectChest then
+    for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+    if v.Name == "Loot_Chest" then
+    for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
+    if game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name].Inventory.Items:FindFirstChild(c.Name) then
+    local args = { [1] = c.Name }
+    v["Add_To_Inventory"]:InvokeServer(unpack(args))
+    delay(0.5, function() c:Destroy() end)
+    else
+    local args = { [1] = c.Name }
+    v["Add_To_Inventory"]:InvokeServer(unpack(args))
+    delay(0.5, function() c:Destroy() end)
+    end
+    end
+    end
+    end
+    end
+    end
+    end)
+
+
+farm:Toggle("Auto Eat Souls (Demons)", false, function(value)
+    getgenv().CollectSOuls = value
+    end)
+    
 local misc = win:Tab("Misc")
 
 local kamadonhealon = true
@@ -649,146 +535,106 @@ misc:Button("Inf Breathing", function()
 end)
 
 
-
-local DungeonFarm = win:Tab("Dungeon")
-
-DungeonFarm:Button("Dungeon 1", function()
-    lib:Notification("Dungeon | Versa", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
-end)
-
-DungeonFarm:Button("Dungeon 2", function()
-    lib:Notification("Dungeon | Hubris", "Executed", "OK")
-    loadstring(game:HttpGet("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw", true))()
-end)
-
-DungeonFarm:Button("Dungeon 3", function()
-    lib:Notification("Dungeon | 3", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Skeereddo/name/main/krnl", true))()
-end)
-
-DungeonFarm:Button("Dungeon | Anti-Afk", function()
-    lib:Notification("Dungeon | Anti-Afk", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()
-end)
-
-DungeonFarm:Button("Dungeon | FPS-BOOST", function()
-    lib:Notification("Dungeon | FPS-BOOST", "Executed", "OK")
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
-end)
-
-local spins = win:Tab("Auto-Spins")
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Clans | Auto-Spins", function()
-    lib:Notification("Clans | Auto-Spin", "Executed", "OK")
-    for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
-    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer("check_can_spin")
-    task.wait(.13)
-    if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
-        return end
-    end
-end)
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily | Auto-Spins", function()
-    lib:Notification("Daily | Auto-Spins", "Executed", "OK")
-    while true do
-        task.wait(.13)
-        game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
-    end 
+Teleports:AddButton("Teleport to Muzan",function(x)
+    getgenv().GotoMuzan = x
+    pcall(function()
+    Tween(CFrame.new(game:GetService("Workspace").Muzan.SpawnPos.Value))
+    end)
 end)
 
 
-local code1 = "Thx4300MNOuwohanaIsBack"
-local code2 = "Thx4300MNOuwohanaIsBack"
-local code3 = "Thx4300MNOuwohanaIsBack"
-local code4 = "Thx4300MNOuwohanaIsBack"
-local code5 = "Thx4300MNOuwohanaIsBack"
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Auto use Codes", function()
-    lib:Notification("Auto use Codes", "Executed", "OK")
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code1)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code2)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code3)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code4)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code5)
-end)
-
-
-
-local Teleports = win:Tab("Teleports")
-
-local teleportOptions = {"Nomay Village", "Village 2", "Mugen Train Station", "Devourers Jaw"} -- Обновленный список локаций
-local selectedOption = teleportOptions[1] -- Значение по умолчанию
-
-Teleports:Dropdown("Teleport Location", teleportOptions, function(option)
-    selectedOption = option
-end)
-
-Teleports:Button("Teleport", function()
-    local plr = game:GetService('Players').LocalPlayer.Name
-
-    if selectedOption == "Nomay Village" then
-        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
-        oh2 = 436704.21677269996
-    elseif selectedOption == "Village 2" then
-        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
-        oh2 = 438042.4649977
-    elseif selectedOption == "Mugen Train Station" then
-        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
-        oh2 = 438393.42154929996
-    elseif selectedOption == "Devourers Jaw" then
-        oh1 = plr .. ".PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
-        oh2 = 438450.62906049995
-    end
-
-    local oh3 = selectedOption -- Используем выбранную опцию из выпадающего списка
-
-    game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(oh1, oh2, oh3)
-end)
-
-
-
-local targetPosition = Vector3.new(436704.21677269996, 0, 0) -- Указанные вами координаты
-
-Teleports:Button("Test Teleport", false, function(t)
-    if t then
-        local noclipE = false
-        local antifall = false
-
-        local function noclip()
-            for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-                if v:IsA("BasePart") and v.CanCollide == true then
-                    v.CanCollide = false
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+--Auto Eat Souls
+spawn(function()
+    while task.wait() do
+        if CollectSOuls then
+            for i,v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+                if v.Name == "Soul" then
+                    pcall(function()
+                        workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
+                    end)
                 end
             end
         end
-
-        function TweenToTarget(CFgo)
-            local tween_s = game:GetService("TweenService")
-            local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo).Magnitude / 250, Enum.EasingStyle.Linear)
-            local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, { CFrame = CFgo })
-
-            if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-                antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
-                antifall.Velocity = Vector3.new(0, 0, 0)
-                noclipE = game:GetService("RunService").Stepped:Connect(noclip)
-                tween:Play()
-            end
-
-            tween.Completed:Connect(function()
-                antifall:Destroy()
-                noclipE:Disconnect()
-            end)
-        end
-
-        TweenToTarget(targetPosition)
     end
+end)();
+
+
+
+
+
+
+
+
+
+
+local Credits = win:Tab("Credits")
+
+Credits:Button("Join/Copy Discord",function()
+    setclipboard("discord.gg/EwB9W5XJ")
+    lib:Notification("Discord Invite", "Link Copied", "OK")
+    syn.request(
+        {
+            Url = "http://127.0.0.1:6463/rpc?v=1",
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json",
+                ["origin"] = "https://discord.com",
+            },
+            Body = game:GetService("HttpService"):JSONEncode(
+                {
+                    ["args"] = {
+                        ["code"] = "EwB9W5XJ",
+                    },
+                    ["cmd"] = "INVITE_BROWSER",
+                    ["nonce"] = "."
+                })
+        })
+    end)
+
+
+
+
+
+
+
+
+
+
+--Farm Method
+--Farm Method
+spawn(function()
+    while wait() do
+        pcall(function()
+            SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
+            if FarmMethod == "Above" then
+                FarmModes = CFrame.new(0,getgenv().Distance,0) * CFrame.Angles(math.rad(-90),0,0) 
+            elseif FarmMethod == "Below" then
+                FarmModes = CFrame.new(0,-getgenv().Distance,0) * CFrame.Angles(math.rad(90),0,0)
+            elseif FarmMethod == "Behind" then
+                FarmModes = CFrame.new(0,0,getgenv().Distance)
+            end
+            for i,v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
+                Insert = true
+                if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
+                    for i,v2 in pairs(invTable) do if v2 == v.Name then Insert = false end end
+                    if Insert == true then table.insert(invTable, v.Name) end
+                end
+            end
+        end)
+    end
+end)
+--No Clip
+spawn(function()
+    game:GetService("RunService").Stepped:Connect(function()
+        if getgenv().AllBosses or TPtoVillage or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
+            for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false    
+                end
+                if v:IsA("Humanoid") then
+                    v:ChangeState(11)
+                end
+            end
+        end
+    end)
 end)

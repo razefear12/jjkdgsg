@@ -536,88 +536,36 @@ end)
 
 
 
-local DungeonFarm = win:Tab("Dungeon")
-
-DungeonFarm:Button("Dungeon 1", function()
-    lib:Notification("Dungeon | Versa", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/asterionnn/versaware/main/VersawareFree.lua", true))()
-end)
-
-DungeonFarm:Button("Dungeon 2", function()
-    lib:Notification("Dungeon | Hubris", "Executed", "OK")
-    loadstring(game:HttpGet("https://gist.github.com/NotHubris/16fbe2bf8d9563e09858c5cd2c6fafce/raw", true))()
-end)
-
-DungeonFarm:Button("Dungeon 3", function()
-    lib:Notification("Dungeon | 3", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Skeereddo/name/main/krnl", true))()
-end)
-
-DungeonFarm:Button("Dungeon | Anti-Afk", function()
-    lib:Notification("Dungeon | Anti-Afk", "Executed", "OK")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/batusz/main/roblox/__Anti__Afk__Script__", true))()
-end)
-
-DungeonFarm:Button("Dungeon | FPS-BOOST", function()
-    lib:Notification("Dungeon | FPS-BOOST", "Executed", "OK")
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
-end)
-
-local spins = win:Tab("Auto-Spins")
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Clans | Auto-Spins", function()
-    lib:Notification("Clans | Auto-Spin", "Executed", "OK")
-    for i = 1,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Spins.Value do
-    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer("check_can_spin")
-    task.wait(.13)
-    if table.find(wanted,game.ReplicatedStorage.Player_Data[game.Players.LocalPlayer.Name].Clan.Value) then
-        return end
-    end
-end)
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Daily | Auto-Spins", function()
-    lib:Notification("Daily | Auto-Spins", "Executed", "OK")
-    while true do
-        task.wait(.13)
-        game:GetService("ReplicatedStorage"):WaitForChild("spins_thing_remote"):InvokeServer()
-    end 
-end)
 
 
-local code1 = "Thx4300MNOuwohanaIsBack"
-local code2 = "Thx4300MNOuwohanaIsBack"
-local code3 = "Thx4300MNOuwohanaIsBack"
-local code4 = "Thx4300MNOuwohanaIsBack"
-local code5 = "Thx4300MNOuwohanaIsBack"
-
--- Обработчик события для выполнения Lua-скрипта
-spins:Button("Auto use Codes", function()
-    lib:Notification("Auto use Codes", "Executed", "OK")
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code1)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code2)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code3)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code4)
-    task.wait(11)
-    game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code5)
-end)
 
 
---Auto Eat Souls
-spawn(function()
-    while task.wait() do
-        if CollectSOuls then
-            for i,v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
-                if v.Name == "Soul" then
-                    pcall(function()
-                        workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
-                    end)
-                end
-            end
-        end
-    end
-end)();
+
+
+
+
+
+
+local Credits = win:Tab("Credits")
+
+Credits:Button("Join/Copy Discord",function()
+    setclipboard("discord.gg/EwB9W5XJ")
+    lib:Notification("Discord Invite", "Link Copied", "OK")
+    syn.request(
+        {
+            Url = "http://127.0.0.1:6463/rpc?v=1",
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json",
+                ["origin"] = "https://discord.com",
+            },
+            Body = game:GetService("HttpService"):JSONEncode(
+                {
+                    ["args"] = {
+                        ["code"] = "EwB9W5XJ",
+                    },
+                    ["cmd"] = "INVITE_BROWSER",
+                    ["nonce"] = "."
+                })
+        })
+    end)

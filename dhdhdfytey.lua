@@ -229,7 +229,7 @@ farm:Toggle("Killaura V1", false, function(t)
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args5, 1, 9))
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
    
-            wait(1.5) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+            wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
         end
     end
 end)
@@ -318,7 +318,7 @@ farm:Toggle("Killaura (JUMP)", false, function(t)
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh5, 1, 9))
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(oh1, 1, 9))
 
-        wait(1.5) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+        wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
     end
 end
 end)

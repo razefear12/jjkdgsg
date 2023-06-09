@@ -28,7 +28,6 @@ end)
 
 local farm = win:Tab("Farm")
 
-local currentTweenSpeed = 250 -- Переменная для хранения текущей скорости Tween
 local isNoclipEnabled = false -- Флаг, указывающий, включен ли режим noclip
 local isAntiFallEnabled = false -- Флаг, указывающий, включен ли режим anti fall
 
@@ -39,11 +38,35 @@ farm:Toggle("Auto Tween NPC", false, function(t)
         local currentMobName = "" -- Переменная для хранения текущего названия моба
         local attackingMob = nil -- Переменная для хранения ссылки на текущего атакуемого моба
 
+        local noclipE       = false
+        local antifall      = false
+        
+        local function noclip()
+            for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                if v:IsA("BasePart") and v.CanCollide == true then
+                    v.CanCollide = false
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+                end
+            end
+        end
+
         function TweenToTarget(CFgo)
             local tween_s = game:GetService("TweenService")
             local info = TweenInfo.new((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFgo.Position).Magnitude / 250, Enum.EasingStyle.Linear)
             local tween = tween_s:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, info, {CFrame = CFgo})
-            tween:Play()
+
+
+            if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                antifall = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+                antifall.Velocity = Vector3.new(0,0,0)
+                noclipE = game:GetService("RunService").Stepped:Connect(noclip)
+                tween:Play()
+            end
+
+            tween.Completed:Connect(function()
+                antifall:Destroy()
+                noclipE:Disconnect()
+            end)
         end
 
         local mobsFolder = workspace.Mobs
@@ -99,18 +122,6 @@ farm:Toggle("Auto Tween NPC", false, function(t)
     end
 end)
 
-game:GetService("RunService").RenderStepped:Connect(function()
-    if isToggleMobsTweenEnabled then
-        if isNoclipEnabled then
-            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-        end
-
-        if isAntiFallEnabled and game.Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.FallingDown then
-            game.Players.LocalPlayer.Character.Humanoid:ChangeState(3)
-        end
-    end
-end)
-
 
 farm:Toggle("Auto Tween Boss", false, function(t)
     isToggleMobsTweenEnabled = t -- Обновляем состояние переключателя
@@ -145,9 +156,6 @@ farm:Toggle("Auto Tween Boss", false, function(t)
     end    
  end)
 
-
-
-
 local WeaponSelector = {"Combat", "Sword", "Claw", "Scythe", "Fans"} -- Обновленный список оружия
 local selectedOption = WeaponSelector[1] -- Значение по умолчанию
 local isToggleEnabled = false -- Переменная для отслеживания состояния переключателя
@@ -164,7 +172,7 @@ farm:Toggle("Killaura V1", false, function(t)
         if selectedOption == "Combat" then
             weapon = "fist_combat"
         elseif selectedOption == "Sword" then
-            weapon = "sword_combat_Slash"
+            weapon = "Sword_Combat_Slash"
         elseif selectedOption == "Claw" then
             weapon = "claw_Combat_Slash"
         elseif selectedOption == "Scythe" then
@@ -229,9 +237,201 @@ farm:Toggle("Killaura V1", false, function(t)
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args5, 1, 9))
             game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(args1, 1, 9))
    
-            wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+            wait(1.3) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
         end
     end
+end)
+
+farm:Toggle("Killaura V2", false, function(t)
+    isToggleEnabled = t -- Обновляем состояние переключателя
+    if t then
+     local weapon
+
+     if selectedOption == "Combat" then
+        weapon = "fist_combat"
+    elseif selectedOption == "Sword" then
+        weapon = "Sword_Combat_Slash"
+    elseif selectedOption == "Claw" then
+        weapon = "claw_Combat_Slash"
+    elseif selectedOption == "Scythe" then
+        weapon = "Scythe_Combat_Slash"
+    elseif selectedOption == "Fans" then
+        weapon = "fans_combat_slash"
+    end
+    
+    local oh1 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh2 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh3 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh4 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh5 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh6 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh7 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh8 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh9 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh10 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh11 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh12 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh13 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh14 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    local oh15 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = 919,
+        [7] = "ground_slash"
+    }
+    local oh16 = {
+        [1] = weapon,
+        [2] = game:GetService("Players").LocalPlayer,
+        [3] = game:GetService("Players").LocalPlayer.Character,
+        [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [6] = math.huge,
+        [7] = "ground_slash"
+    }
+
+    while isToggleEnabled do -- Добавляем проверку состояния переключателя в условие цикла
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh1, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh2, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh3, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh4, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh5, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh6, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh7, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh8, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh9, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh10, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh11, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh12, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh13, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh14, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh15, 1, 9))
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh16, 1, 9))
+
+        wait(2) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+    end
+end
 end)
 
 
@@ -243,7 +443,7 @@ farm:Toggle("Killaura (JUMP)", false, function(t)
      if selectedOption == "Combat" then
         weapon = "fist_combat"
     elseif selectedOption == "Sword" then
-        weapon = "sword_combat_Slash"
+        weapon = "Sword_Combat_Slash"
     elseif selectedOption == "Claw" then
         weapon = "claw_Combat_Slash"
     elseif selectedOption == "Scythe" then
@@ -318,7 +518,7 @@ farm:Toggle("Killaura (JUMP)", false, function(t)
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(oh5, 1, 9))
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(unpack(oh1, 1, 9))
 
-        wait(1.0) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
+        wait(1.3) -- Добавляем задержку в 1 секунду перед следующей итерацией цикла
     end
 end
 end)

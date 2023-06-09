@@ -11,7 +11,116 @@ maintab:Button("Farm | FPS-BOOST", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
 end)
 
+
+local function GetHuman()
+    local h = LP.Character
+    h = h and (h:FindFirstChild("Humanoid") or h:FindFirstChildWhichIsA("Humanoid"))
+    return h or workspace.CurrentCamera.CameraSubject
+end
+
+local GramxProjectFloat = tostring(math.random(0, 100000))
+local TweenFloatVelocity = Vector3.new(0,0,0)
+function CreateTweenFloat()
+    local BV = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(GramxProjectFloat) or Instance.new("BodyVelocity")
+    BV.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+    BV.Name = GramxProjectFloat
+    BV.MaxForce = Vector3.new(100000, 100000, 100000)
+    BV.Velocity = TweenFloatVelocity
+end
+
+
+local function GetDistance(Endpoint)
+    if typeof(Endpoint) == "Instance" then
+       Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+    elseif typeof(Endpoint) == "CFrame" then
+       Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+    end
+    local Magnitude = (Endpoint - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    return Magnitude
+end
+
+
+function Tween(Endpoint)
+    if typeof(Endpoint) == "Instance" then
+       Endpoint = Endpoint.CFrame
+    end
+    local TweenFunc = {}
+    local Distance = GetDistance(Endpoint)
+    local TweenInfo = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/getgenv().tweenspeed, Enum.EasingStyle.Linear), {CFrame = Endpoint * CFrame.fromAxisAngle(Vector3.new(1,0,0), math.rad(0))})
+    TweenInfo:Play()
+    function TweenFunc:Cancel()
+       TweenInfo:Cancel()
+       return false
+    end
+    if Distance <= 100 then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Endpoint
+       TweenInfo:Cancel()
+       return false
+    end
+    return TweenFunc
+end
+
+
 local farm = win:Tab("Farm")
+
+
+farm:AddDropdown("Dropdown", BossessTable, '', false, function(value)
+    getgenv().SelectedBoss = value
+end)
+
+farm:AddToggle("Farm Selected Boss", false, function(value)
+    getgenv().FarmBoss = value 
+end)
+
+--Farm Selected Boss
+
+spawn(function()
+    while task.wait() do
+        pcall(function()
+            if FarmBoss then
+                if not LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                    antifall = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
+                    antifall.Velocity = Vector3.new(0, 0, 0)
+                    antifall.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+                elseif LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                    for i,v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
+                        if string.match(v.Name, SelectedBoss) and v:IsA("Model") and v:FindFirstChild("Humanoid") then
+                            if v:FindFirstChild('HumanoidRootPart') and v.Humanoid.Health > 0 then
+                                PosMon = v.HumanoidRootPart.Position
+                                repeat task.wait()
+                                    if GetDistance(v:GetModelCFrame() * FarmModes) < 50 and GetDistance(v:GetModelCFrame() * FarmModes) < 150 then
+                                        if TweenFa then
+                                        TweenFa:Cancel()
+                                        wait(.1)
+                                        end
+                                        LP.Character.HumanoidRootPart.CFrame = v:GetModelCFrame() * FarmModes
+                                    else
+                                        TweenFa = Tween(v:GetModelCFrame() * FarmModes)
+                                    end
+                                    if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and GetDistance(v:GetModelCFrame() * FarmModes) < 10 then
+                                        NearestMobs = true
+                                    elseif v.Humanoid.Health <= 0 or not v:FindFirstChild("Humanoid") and GetDistance(v:GetModelCFrame() * FarmModes) > 10 then
+                                        NearestMobs = false
+                                    end
+                                until not FarmBoss or not v.Parent or v.Humanoid.Health <= 0 or not v:IsDescendantOf(workspace)
+                                NearestMobs = false
+                            else
+                                repeat task.wait()
+                                    TweenFa = Tween(v:GetModelCFrame())
+                                until v:FindFirstChild("HumanoidRootPart") or not FarmBoss
+                            end
+                        end
+                    end
+                end
+            else
+                antifall:Destroy()
+            end
+            if getgenv().FarmBoss == false then
+                TweenFa:Cancel()
+            end
+        end)
+    end
+end) 
 
 
 local WeaponSelector = {"Combat", "Sword", "Claw", "Scythe", "Fans"} -- Обновленный список оружия
@@ -537,7 +646,19 @@ end)
 
 
 
-
+--Bosses
+local BossessTable = {"Slasher", "Nomay Bandit Boss", "Rengoku", "Inosuke","Renpeke","Muichiro Tokito","Enme","Swampy","Akeza"}
+local bosCFTable = {
+    ["Nomay Bandit Boss"] = CFrame.new(3519, 673, -1898),
+    Slasher = CFrame.new(950, 487, -1353),
+    Rengoku = CFrame.new(3651, 673, -345),
+    Inosuke = CFrame.new(1618, 300, -417),
+    Akaza = CFrame.new(1970, 556, -142),
+    Renpeke = CFrame.new(-1193, 601, -558),
+    ["Muchiro Tokito"] = CFrame.new(4431, 673, -440),
+    ["Enme"] = CFrame.new(1577, 483, -681),
+    Swampy = CFrame.new(-1301, 601, -283),
+}
 
 
 
@@ -569,3 +690,90 @@ Credits:Button("Join/Copy Discord",function()
                 })
         })
     end)
+
+
+
+
+    --AutoFarm All Bosses
+    spawn(function()
+    while task.wait() do
+        pcall(function()
+            if getgenv().AllBosses then
+                if not LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                    antifall3 = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
+                    antifall3.Velocity = Vector3.new(0, 0, 0)
+                    antifall3.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+                elseif LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                    for i,v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
+                        if v:IsA("Model") and v:FindFirstChild("Humanoid") then
+                            if v.Humanoid.Health > 0 then
+                                repeat task.wait()                                      
+                                    if GetDistance(v:GetModelCFrame() * FarmModes) < 25 and GetDistance(v:GetModelCFrame() * FarmModes) < 150 then
+                                        if TweenFa then
+                                        TweenFa:Cancel()
+                                        wait(.1)
+                                        end
+                                        LP.Character.HumanoidRootPart.CFrame = v:GetModelCFrame() * FarmModes
+                                    else
+                                        TweenFa = Tween(v:GetModelCFrame() * FarmModes)
+                                    end
+                                    if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and GetDistance(v:GetModelCFrame() * FarmModes) < 10 then
+                                        NearestMobs = true
+                                    elseif v.Humanoid.Health <= 0 or not v:FindFirstChild("Humanoid") and GetDistance(v:GetModelCFrame() * FarmModes) > 10 then
+                                        NearestMobs = false
+                                    end
+                                until not getgenv().AllBosses or not v.Parent or v.Humanoid.Health <= 0 or not v:IsDescendantOf(workspace)
+                                NearestMobs = false
+                            end
+                        end
+                    end
+                end
+            else
+                antifall3:Destroy()
+            end
+            if getgenv().AllBosses == false then
+                TweenFa:Cancel()
+            end
+        end)
+    end
+end)
+
+
+--Farm Method
+--Farm Method
+spawn(function()
+    while wait() do
+        pcall(function()
+            SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
+            if FarmMethod == "Above" then
+                FarmModes = CFrame.new(0,getgenv().Distance,0) * CFrame.Angles(math.rad(-90),0,0) 
+            elseif FarmMethod == "Below" then
+                FarmModes = CFrame.new(0,-getgenv().Distance,0) * CFrame.Angles(math.rad(90),0,0)
+            elseif FarmMethod == "Behind" then
+                FarmModes = CFrame.new(0,0,getgenv().Distance)
+            end
+            for i,v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
+                Insert = true
+                if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
+                    for i,v2 in pairs(invTable) do if v2 == v.Name then Insert = false end end
+                    if Insert == true then table.insert(invTable, v.Name) end
+                end
+            end
+        end)
+    end
+end)
+--No Clip
+spawn(function()
+    game:GetService("RunService").Stepped:Connect(function()
+        if getgenv().AllBosses or TPtoVillage or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
+            for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false    
+                end
+                if v:IsA("Humanoid") then
+                    v:ChangeState(11)
+                end
+            end
+        end
+    end)
+end)

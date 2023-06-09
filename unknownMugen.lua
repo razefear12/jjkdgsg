@@ -141,17 +141,28 @@ spawn(function()
     while task.wait() do
         if getgenv().AutoMugenClash then
 
-            local args = {
+            local MugenClash1 = {
                 [1] = "Change_Value",
-                [2] = workspace.Debree.clash_folder[game.Players.LocalPlayer.Name..vsEnmu][game.Players.LocalPlayer.Name], -- Добавлен пропущенный оператор .. для объединения строк
+                [2] = workspace.Debree.clash_folder[game.Players.LocalPlayer.Name..vsEnmu][game.Players.LocalPlayer.Name],
                 [3] = 10
             }
             
-            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args))
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(MugenClash1, 1, 3))
             
         end
     end
 end)
+
+
+local oh16 = {
+    [1] = weapon,
+    [2] = game:GetService("Players").LocalPlayer,
+    [3] = game:GetService("Players").LocalPlayer.Character,
+    [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+    [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+    [6] = math.huge,
+    [7] = "ground_slash"
+}
 
 
 maintab:Button("Farm | FPS-BOOST", function()

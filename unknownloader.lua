@@ -8,7 +8,7 @@ if placeId == 5956785391 then
 elseif placeId == 11468075017 then
     print("Nice! <3")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/razefear12/jjkdgsg/main/unknownDungeon.lua", true))()
-elseif placeId == 11468159863 then
+elseif placeId == 11468034852 then
     print("Nice! <3")
     loadstring(game:HttpGet("https://raw.githubusercontent.com/razefear12/jjkdgsg/main/unknownMugen.lua", true))()
 elseif placeId == 6152116144 then

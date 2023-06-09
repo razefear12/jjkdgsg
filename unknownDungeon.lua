@@ -659,11 +659,11 @@ function Teleport(Position : Vector3, Offset : Vector3, Speed : number)
     end
 end
 
-local ToggleInstaKillon = "InstaKill"
-local ToggleHealthRegenon = "HealthRegen"
-local ToggleStaminaRegenon = "StaminaRegen"
-local ToggleBloodMoneyon = "BloodMoney"
-local ToggleDoublePointson = "DoublePoints"
+local ToggleInstaKillon = "InstaKill",
+local ToggleHealthRegenon = "HealthRegen",
+local ToggleStaminaRegenon = "StaminaRegen",
+local ToggleBloodMoneyon = "BloodMoney",
+local ToggleDoublePointson = "DoublePoints",
 
 local ToggleInstaKilloff = ""
 local ToggleHealthRegenoff = ""
@@ -678,49 +678,26 @@ local autoPickUpOrbsEnabled = false
 orbs:Toggle("Auto Pick Up Orbs", false, function(t)
     autoPickUpOrbsEnabled = t
     if autoPickUpOrbsEnabled then
-        ClaimOrbs()
+        local Orbs = {
+            "InstaKill",
+            "HealthRegen",
+            "StaminaRegen",
+            "BloodMoney",
+            "DoublePoints",
+        }
+        
+        function ClaimOrbs()
+            if autoPickUpOrbsEnabled then
+                for i, Orb in Map:GetChildren() do
+                    if table.find(Orbs, Orb.Name) then
+                        pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
+                    end
+                end
+            end
+        end
     end
 end)
 
-orbs:Toggle("InstaKill", false, function(t)
-    if t then
-        table.insert(Orbs, ToggleInstaKillon)
-    else
-        table.remove(Orbs, table.find(Orbs, ToggleInstaKillon))
-    end
-end)
-
-orbs:Toggle("HealthRegen", false, function(t)
-    if t then
-        table.insert(Orbs, ToggleHealthRegenon)
-    else
-        table.remove(Orbs, table.find(Orbs, ToggleHealthRegenon))
-    end
-end)
-
-orbs:Toggle("StaminaRegen", false, function(t)
-    if t then
-        table.insert(Orbs, ToggleStaminaRegenon)
-    else
-        table.remove(Orbs, table.find(Orbs, ToggleStaminaRegenon))
-    end
-end)
-
-orbs:Toggle("BloodMoney", false, function(t)
-    if t then
-        table.insert(Orbs, ToggleBloodMoneyon)
-    else
-        table.remove(Orbs, table.find(Orbs, ToggleBloodMoneyon))
-    end
-end)
-
-orbs:Toggle("DoublePoints", false, function(t)
-    if t then
-        table.insert(Orbs, ToggleDoublePointson)
-    else
-        table.remove(Orbs, table.find(Orbs, ToggleDoublePointson))
-    end
-end)
 
 function ClaimOrbs()
     if autoPickUpOrbsEnabled then

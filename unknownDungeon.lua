@@ -826,7 +826,7 @@ end)
 local Credits = win:Tab("Credits")
 
 Credits:Button("Join/Copy Discord",function()
-    setclipboard("discord.gg/EwB9W5XJ")
+    setclipboard("discord.gg/h6TSHMErNP")
     lib:Notification("Discord Invite", "Link Copied", "OK")
     syn.request(
         {
@@ -839,7 +839,7 @@ Credits:Button("Join/Copy Discord",function()
             Body = game:GetService("HttpService"):JSONEncode(
                 {
                     ["args"] = {
-                        ["code"] = "EwB9W5XJ",
+                        ["code"] = "h6TSHMErNP",
                     },
                     ["cmd"] = "INVITE_BROWSER",
                     ["nonce"] = "."

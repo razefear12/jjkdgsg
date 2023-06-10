@@ -52,3 +52,29 @@ spins:Button("Auto use Codes", function()
     task.wait(11)
     game:GetService("ReplicatedStorage").Remotes.send_code_to_server:FireServer(code5)
 end)
+
+
+
+local Credits = win:Tab("Credits")
+
+Credits:Button("Join/Copy Discord",function()
+    setclipboard("discord.gg/h6TSHMErNP")
+    lib:Notification("Discord Invite", "Link Copied", "OK")
+    syn.request(
+        {
+            Url = "http://127.0.0.1:6463/rpc?v=1",
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json",
+                ["origin"] = "https://discord.com",
+            },
+            Body = game:GetService("HttpService"):JSONEncode(
+                {
+                    ["args"] = {
+                        ["code"] = "h6TSHMErNP",
+                    },
+                    ["cmd"] = "INVITE_BROWSER",
+                    ["nonce"] = "."
+                })
+        })
+    end)

@@ -143,7 +143,7 @@ spawn(function()
 
             local MugenClash1 = {
                 [1] = "Change_Value",
-                [2] = workspace.Debree.clash_folder[game.Players.LocalPlayer.Name..vsEnmu][game.Players.LocalPlayer.Name],
+                [2] = workspace.Debree.clash_folder.[game.Players.LocalPlayer.Name]vsEnmu.[game.Players.LocalPlayer.Name],
                 [3] = 10
             }
             

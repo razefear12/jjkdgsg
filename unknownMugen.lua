@@ -154,17 +154,6 @@ spawn(function()
 end)
 
 
-local oh16 = {
-    [1] = weapon,
-    [2] = game:GetService("Players").LocalPlayer,
-    [3] = game:GetService("Players").LocalPlayer.Character,
-    [4] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
-    [5] = game:GetService("Players").LocalPlayer.Character.Humanoid,
-    [6] = math.huge,
-    [7] = "ground_slash"
-}
-
-
 maintab:Button("Farm | FPS-BOOST", function()
     lib:Notification("Farm | FPS-BOOST", "Executed", "OK")
     loadstring(game:HttpGet('https://raw.githubusercontent.com/MarsQQ/ScriptHubScripts/master/FPS%20Boost', true))()
